@@ -49,14 +49,3 @@ export async function containsPost(pst) {
     }
     return false;
 }
-
-// a foglalas es a vendeglo kompatibilis-e
-export function invitationValidator(invitation, post) {
-    if (invitation.time < post.open || invitation.time >= post.close) {
-        return 'The posts opening hours doesn\'t match with your invitation time!';
-    }
-    if (post.structure[invitation.table] !== 1) {
-        return 'Invalid table number';
-    }
-    return '';
-}

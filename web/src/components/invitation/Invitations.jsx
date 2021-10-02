@@ -181,7 +181,7 @@ export default class Invitations extends React.Component {
                 <input id="date" type="date" name="date" value={secondDate} onChange={this.secondDateChange} required/>
                 <div id="invitations">
                     {invitations.filter((inv) => inv.status === 'pending').map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, table number: {inv.table}, status: <b>{inv.status}</b> &nbsp;
+                        <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, status: <b>{inv.status}</b> &nbsp;
                             <a href="#" onClick={() => this.acceptInv(inv._id)}>ACCEPT &nbsp;</a>
                             <a href="#" onClick={() => this.declineInv(inv._id)}>DECLINE</a>
                             { inv.name === user.username ? (
@@ -190,14 +190,14 @@ export default class Invitations extends React.Component {
                         </div>
                     ))}
                     {invitations.filter((inv) => inv.status === 'accepted').map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, table number: {inv.table}, status: <b>{inv.status}</b>
+                        <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, status: <b>{inv.status}</b>
                             { inv.name === user.username ? (
                                 <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
                             ) : (<></>)}
                         </div>
                     ))}
                     {invitations.filter((inv) => inv.status === 'declined').map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, table number: {inv.table}, status: <b>{inv.status}</b>
+                        <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, status: <b>{inv.status}</b>
                             { inv.name === user.username ? (
                                 <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
                             ) : (<></>)}

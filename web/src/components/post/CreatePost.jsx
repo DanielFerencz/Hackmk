@@ -12,32 +12,12 @@ export default class CreatePost extends React.Component {
             msg: '',
             post: {},
             user: {},
-            tableRows: [],
-            tableColumns: [],
-            tables: [],
         };
         autoBind(this);
     }
 
     // Adatok inicializalasa
     async componentDidMount() {
-        const tableRows = [];
-        for (let i = 0; i < 10; i += 1) {
-            tableRows.push(i);
-        }
-        this.setState({ tableRows });
-
-        const tableColumns = [];
-        for (let i = 0; i < 10; i += 1) {
-            tableColumns.push(i);
-        }
-        this.setState({ tableColumns });
-
-        const tables = [];
-        for (let i = 0; i < 100; i += 1) {
-            tables.push(0);
-        }
-        this.setState({ tables });
         const user = await findUser();
         this.setState({ user });
     }
@@ -49,44 +29,22 @@ export default class CreatePost extends React.Component {
         this.setState({ post });
     }
 
-    // az asztalokra valo kattintas
-    clickOnCanvas(index) {
-        const { tables } = this.state;
-        tables[index] = 1 - tables[index];
-        this.setState({ tables });
-        if (tables[index] === 1) {
-            document.getElementById(`bt${index}`).style.backgroundColor = 'green';
-        } else {
-            document.getElementById(`bt${index}`).style.backgroundColor = 'grey';
-        }
-    }
-
     // bekuldes eseten
     async onSubmit(event) {
         event.preventDefault();
-        const { tables } = this.state;
-        let structure = 0;
-        for (let i = 0; i < 100; i += 1) {
-            structure += tables[i];
-        }
-        if (structure === 0) {
-            this.setState({ msg: 'You have to select at least 1 table!' });
+        this.state.post.adminID = this.state.user.id;
+        const msg = await createPost(this.state.post);
+        if (msg === 'OK') {
+            this.props.history.push('/');
         } else {
-            this.state.post.structure = this.state.tables;
-            this.state.post.adminID = this.state.user.id;
-            const msg = await createPost(this.state.post);
-            if (msg === 'OK') {
-                this.props.history.push('/');
-            } else {
-                this.setState({ msg });
-            }
+            this.setState({ msg });
         }
     }
 
     // Oldal betoltese
     render() {
         const {
-            msg, post, user, tableRows, tableColumns,
+            msg, post, user,
         } = this.state;
 
         if (JSON.stringify(user) === '{}') {
@@ -109,40 +67,27 @@ export default class CreatePost extends React.Component {
                     <input id="name" type="text" name="name" placeholder="Post name" value={post.name} onChange={this.onChange} required/>
                     <br/>
 
+                    <label htmlFor="genre"> Genre name: </label>
+                    <input id="genre" type="text" name="genre" placeholder="Genre name" value={post.genre} onChange={this.onChange} required/>
+                    <br/>
+
+                    <label htmlFor="game"> Game name: </label>
+                    <input id="game" type="text" name="game" placeholder="Game name" value={post.game} onChange={this.onChange} required/>
+                    <br/>
+
                     <label htmlFor="city"> City name: </label>
                     <input id="city" type="text" name="city" placeholder="City name" value={post.city} onChange={this.onChange} required/>
                     <br/>
 
-                    <label htmlFor="street"> Street name: </label>
-                    <input id="street" type="text" name="street" placeholder="Street name" value={post.street} onChange={this.onChange} required/>
-                    <br/>
-
-                    <label htmlFor="number"> Street number: </label>
-                    <input id="number" type="number" name="number" placeholder="Street number" value={post.number} onChange={this.onChange} required/>
+                    <label htmlFor="email"> Email: </label>
+                    <input id="email" type="text" name="email" placeholder="Email" value={post.email} onChange={this.onChange} required/>
                     <br/>
 
                     <label htmlFor="telefon">Telefon number: </label>
                     <input id="telefon" type="tel" name="telefon" placeholder="Telefon number" value={post.telefon} onChange={this.onChange} required/>
                     <br/>
 
-                    <label htmlFor="open">Opening hour: </label>
-                    <input id="open" type="time" name="open" value={post.open} onChange={this.onChange} required/>
-                    <br/>
-
-                    <label htmlFor="close">Closing hour: </label>
-                    <input id="close" type="time" name="close" value={post.close} onChange={this.onChange} required/>
-                    <br/>
-                    <h2>Create the structure of the post</h2>
-                    <table>
-                        <tbody>
-                            {tableRows.map((row) => <tr key={row}>
-                                {tableColumns.map((col) => <td key={col}>
-                                    <input type="button" id={`bt${row * 10 + col}`} className='tables' key={row * 10 + col} onClick={() => this.clickOnCanvas(row * 10 + col)} />
-                                </td>)}
-                            </tr>)}
-                        </tbody>
-                    </table>
-
+                    
                     <input type="button" onClick={this.onSubmit} value="Create Post" />
                 </form>
             </>

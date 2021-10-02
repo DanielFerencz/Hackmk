@@ -47,23 +47,13 @@ export function postValidator(req, res, next) {
             msg: 'Forbidden action',
         });
     }
-    const fields = ['adminID', 'name', 'city', 'street', 'number', 'telefon', 'open', 'close', 'structure'];
+    const fields = ['adminID', 'name', 'genre', 'game', 'city', 'email', 'telefon'];
     let msg = '';
     fields.forEach((field) => {
         if (req.body[field] === undefined) {
             msg = `The ${field} field is empty!`;
         }
     });
-
-    let tableCount = 0;
-    for (let i = 0; i < 100; i += 1) {
-        if (req.body.structure[i] !== 1 && req.body.structure[i] !== 0) msg = 'Invalid table structure!';
-        tableCount += req.body.structure[i];
-    }
-
-    if (tableCount <= 0) {
-        msg = 'Invalid table structure';
-    }
 
     if (msg !== '') {
         return res.status(404).json({
@@ -82,7 +72,8 @@ export function invitationValidator(req, res, next) {
             msg,
         });
     }
-    const fields = ['name', 'id', 'date', 'time', 'table'];
+
+    const fields = ['name', 'id', 'date', 'time'];
     fields.forEach((field) => {
         if (req.body[field] === undefined) {
             msg = `The ${field} field is empty!`;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import showMore from '../../service/showMore.js';
 
 // Egy vendeglo nemi adatai
 export default class Post extends React.Component {
@@ -13,10 +12,9 @@ export default class Post extends React.Component {
                     <h2>
                         <Link to={`post_details/${pst._id}`}> {pst.name}</Link>
                     </h2>
-                    <div>Opening hours: {pst.open} - {pst.close} </div>
-                    <div className="city">City: {pst.city}</div>
+                    <div>Game: {pst.game} </div>
+                    <div className="genre">Genre: {pst.genre}</div>
                 </div>
-                <div><a href="#" onClick={() => showMore(pst._id)}>Show more</a></div>
             </div>
         );
     }

@@ -120,29 +120,10 @@ router.post('/createInvitation', middlewares.invitationValidator, async (req, re
 
         const post = await utilities.fromPosts(req.body.id);
 
-        msg = utilities.invitationValidator(req.body, post);
-
-        if (msg !== '') {
-            return res.status(404).json({
-                msg,
-            });
-        }
-
-        let invitations = await database.findInvitations(post._id);
-        invitations = invitations.filter((inv) => inv.status === 'accepted');
-        for (let i = 0; i < invitations.length; i += 1) {
-            if (invitations[i].date === req.body.date
-                && invitations[i].table === req.body.table) {
-                msg = 'That table is already invved!';
-                return res.status(401).json({
-                    msg,
-                });
-            }
-        }
         const { body } = req;
         body.status = 'pending';
         body.pstName = post.name;
-        await database.insertInvv(body);
+        await database.insertInvitation(body);
 
         msg = 'Invitation accepted';
         return res.status(200).json({

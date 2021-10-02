@@ -12,8 +12,8 @@ export default class Posts extends React.Component {
             posts: null,
             msg: '',
             nameFilter: '',
-            cityFilter: '',
-            cityDict: {},
+            genreFilter: '',
+            genreDict: {},
         };
         autoBind(this);
     }
@@ -34,10 +34,10 @@ export default class Posts extends React.Component {
     }
 
     // Varos filter
-    cityChange(event) {
-        let { cityFilter } = this.state;
-        cityFilter = event.target.value;
-        this.setState({ cityFilter });
+    genreChange(event) {
+        let { genreFilter } = this.state;
+        genreFilter = event.target.value;
+        this.setState({ genreFilter });
     }
 
     // Varos szamozasa
@@ -47,17 +47,17 @@ export default class Posts extends React.Component {
         const filteredPosts = posts
             .filter((pst) => (pst.name.toLowerCase().includes(nameFilter.toLowerCase())));
         filteredPosts.forEach((pst) => {
-            dict[pst.city] = 0;
+            dict[pst.genre] = 0;
         });
         filteredPosts.forEach((pst) => {
-            dict[pst.city] += 1;
+            dict[pst.genre] += 1;
         });
-        this.setState({ cityDict: dict });
+        this.setState({ genreDict: dict });
     }
 
     // Oldal betoltese
     render() {
-        const { nameFilter, cityFilter, cityDict } = this.state;
+        const { nameFilter, genreFilter, genreDict } = this.state;
         const { posts } = this.state;
 
         if (!posts) {
@@ -66,7 +66,7 @@ export default class Posts extends React.Component {
 
         const filteredPosts = posts
             .filter((pst) => (pst.name.toLowerCase().includes(nameFilter.toLowerCase())
-            && (pst.city === cityFilter || cityFilter === '')));
+            && (pst.genre === genreFilter || genreFilter === '')));
 
         if (filteredPosts.length === 0) {
             return (
@@ -74,11 +74,11 @@ export default class Posts extends React.Component {
                     <Msg msg={this.state.msg} />
                     <h1>Posts</h1>
                     <input type="text" placeholder="Search.." value={nameFilter} onChange={this.onChange}></input>
-                    <label htmlFor="city">Choose a city:</label>
-                    <select id="city" name="city" onChange={this.cityChange}>
-                        <option value="" key="none"> Show every city </option>
-                        {Object.keys(cityDict).map((key) => (
-                            <option value={`${key}`} key={key}> {`${key} (${cityDict[key]})`} </option>
+                    <label htmlFor="genre">Choose a genre:</label>
+                    <select id="genre" name="genre" onChange={this.genreChange}>
+                        <option value="" key="none"> Show every genre </option>
+                        {Object.keys(genreDict).map((key) => (
+                            <option value={`${key}`} key={key}> {`${key} (${genreDict[key]})`} </option>
                         ))}
                     </select>
                     <div id="container">
@@ -94,11 +94,11 @@ export default class Posts extends React.Component {
                 <Msg msg={this.state.msg} />
                 <h1>Posts</h1>
                 <input type="text" placeholder="Search.." value={nameFilter} onChange={this.onChange} ></input>
-                <label htmlFor="city">Choose a city:</label>
-                <select id="city" name="city" onChange={this.cityChange}>
-                    <option value="" key="none"> Show every city </option>
-                    {Object.keys(cityDict).map((key) => (
-                        <option value={`${key}`} key={key}> {`${key} (${cityDict[key]})`} </option>
+                <label htmlFor="genre">Choose a genre:</label>
+                <select id="genre" name="genre" onChange={this.genreChange}>
+                    <option value="" key="none"> Show every genre </option>
+                    {Object.keys(genreDict).map((key) => (
+                        <option value={`${key}`} key={key}> {`${key} (${genreDict[key]})`} </option>
                     ))}
                 </select>
                 <div id="container">

@@ -1,5 +1,5 @@
 body {
-    background-color: hsl(36, 50%, 73%);
+    background-color: hsl(207, 94%, 81%);
     font-size: 18px;
 }
 
@@ -40,22 +40,22 @@ label {
     display: block;
 }
 
-div.restaurant {
+div.post {
     border: 2px solid hsl(36, 73%, 28%);
     border-radius: 10%;
     margin: 10px;
     padding: 0.7%;
 }
-div#reservations {
+div#invitations {
     border: 2px solid hsl(36, 73%, 28%);
     margin: 10px;
 }
 
-div.restaurant div {
+div.post div {
     margin: 5px;
 }
 
-div#reservations div {
+div#invitations div {
     margin: 5px;
 }
 
