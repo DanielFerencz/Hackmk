@@ -15,7 +15,7 @@ router.get('/posts', async (req, res) => {
 
 // egy vendeglo lekerese
 router.get('/post', async (req, res) => {
-    const post = await database.findPost(parseInt(req.query.rest_id, 10));
+    const post = await database.findPost(parseInt(req.query.pst_id, 10));
     if (post) {
         return res.send(post);
     }

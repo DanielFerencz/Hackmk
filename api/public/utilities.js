@@ -4,7 +4,7 @@ import * as database from '../db/freeCollabDB.js';
 export async function containsId(id) {
     let post;
     try {
-        post = await database.findRestaurant(id);
+        post = await database.findPost(id);
     } catch (err) {
         console.log(err);
         return false;
@@ -17,10 +17,10 @@ export async function containsId(id) {
 }
 
 // Vendegloket lekeri
-export async function fromRestaurants(id) {
+export async function fromPosts(id) {
     let post;
     try {
-        post = await database.findRestaurant(id);
+        post = await database.findPost(id);
     } catch (err) {
         console.log(err);
         return false;
@@ -35,10 +35,10 @@ export async function fromRestaurants(id) {
 }
 
 // Van e olyan nevu vendeglo
-export async function containsRestaurant(pst) {
+export async function containsPost(pst) {
     let post;
     try {
-        post = await database.findRestaurantByName(pst);
+        post = await database.findPostByName(pst);
     } catch (err) {
         console.log(err);
         return false;

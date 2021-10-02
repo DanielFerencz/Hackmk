@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Lekeri az osszes foglalast az adott vendeglore
 router.get('/invitations', async (req, res) => {
-    const invitations = await database.findInvitations(parseInt(req.query.rest_id, 10));
+    const invitations = await database.findInvitations(parseInt(req.query.pst_id, 10));
     res.send(invitations);
 });
 
@@ -59,12 +59,12 @@ router.put('/acceptInvitation', async (req, res) => {
         } else {
             return res.status(404).json({ msg: 'No such invitation' });
         }
-        const updatedReser = {
+        const updatedInv = {
             $set: {
                 status: 'accepted',
             },
         };
-        database.acceptInvitation(inv._id, updatedReser);
+        database.acceptInvitation(inv._id, updatedInv);
         return res.json({
             msg: 'OK',
         });
@@ -91,12 +91,12 @@ router.put('/declineInvitation', async (req, res) => {
         } else {
             return res.status(404).json({ msg: 'No such invitation' });
         }
-        const updatedReser = {
+        const updatedInv = {
             $set: {
                 status: 'declined',
             },
         };
-        database.acceptInvitation(inv._id, updatedReser);
+        database.acceptInvitation(inv._id, updatedInv);
         return res.json({
             msg: 'OK',
         });
@@ -141,8 +141,8 @@ router.post('/createInvitation', middlewares.invitationValidator, async (req, re
         }
         const { body } = req;
         body.status = 'pending';
-        body.restName = post.name;
-        await database.insertReserv(body);
+        body.pstName = post.name;
+        await database.insertInvv(body);
 
         msg = 'Invitation accepted';
         return res.status(200).json({

@@ -20,7 +20,7 @@ router.get('/picture', async (req, res) => {
 
 // Foto-nevek lekerese
 router.get('/pictures', async (req, res) => {
-    const pictures = await database.findPictures(parseInt(req.query.rest_id, 10));
+    const pictures = await database.findPictures(parseInt(req.query.pst_id, 10));
     res.send(pictures);
 });
 

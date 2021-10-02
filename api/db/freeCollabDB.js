@@ -68,7 +68,7 @@ export function findInvitations(iD) {
     return connection.collection(collInvitation).find({ id: iD }).toArray();
 }
 
-export function findMyReservations(username) {
+export function findMyInvitations(username) {
     return connection.collection(collInvitation).find({ name: username }).toArray();
 }
 
@@ -80,9 +80,9 @@ export function deleteInvitation(iD) {
     connection.collection(collInvitation).deleteOne({ _id: mongodb.ObjectID(iD) });
 }
 
-export function acceptInvitation(iD, updatedReser) {
+export function acceptInvitation(iD, updatedInv) {
     return connection.collection(collInvitation)
-        .updateOne({ _id: mongodb.ObjectID(iD) }, updatedReser, { upsert: true });
+        .updateOne({ _id: mongodb.ObjectID(iD) }, updatedInv, { upsert: true });
 }
 
 export function findMaxID() {
