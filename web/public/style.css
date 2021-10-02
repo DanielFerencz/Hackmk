@@ -1,6 +1,7 @@
 body {
-    background-color: #b6c8d4;
+    background-color: #c8d8e4;
     font-size: 18px;
+    
 }
 
 nav a {
@@ -20,13 +21,13 @@ nav a:hover {
 }
 
 h1, h2, h3 {
-    color: hsl(34, 56%, 19%);
+    color: #52ab98;
     font-style: italic;
     padding-left: 2%;
 }
 
 a {
-    color: hsl(24, 65%, 36%);
+    color:  #52ab98;
     text-decoration: none;
 }
 
@@ -41,12 +42,12 @@ label {
 }
 
 div.post {
-    border: 2px solid hsl(0, 0%, 0%);
+    border: 2px solid #2b6777;
     margin: 10px;
     padding: 0.7%;
 }
 div#invitations {
-    border: 2px solid hsl(36, 73%, 28%);
+    border: 2px solid #2b6777;
     margin: 10px;
 }
 

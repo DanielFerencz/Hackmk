@@ -4,6 +4,9 @@ import autoBind from 'auto-bind';
 import Msg from './Msg.jsx';
 import { loginSubmit } from '../../service/script.js';
 import findUser from '../../service/user.js';
+import {
+	Grid,
+} from "@mui/material";
 
 // Login main szerkezete
 export default class Login extends React.Component {
@@ -41,32 +44,43 @@ export default class Login extends React.Component {
         if (JSON.stringify(user) !== '{}') {
             return (
                 <>
-                    <h1>Login: </h1>
-                    <div id="login">
-                        <div className="login">
-                            You are already logged in!
-                        </div>
-                    </div>
+                    <Grid container direction="column" justifyContent="center" justify="center" alignItems="center"> 
+                        <Grid Item> 
+                            <h1>Login: </h1>
+                            <div id="login">
+                                <div className="login">
+                                    You are already logged in!
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </>
             );
         }
 
         return (
             <>
-                <Msg msg={msg}/>
-                <h1>Login</h1>
-                <form method="POST" id="login">
-                    <label htmlFor="username">Username: </label>
-                    <input id="username" type="text" name="username" required/>
-
-                    <label htmlFor="password">Password: </label>
-                    <input id="password" type="password" name="password" required/>
-
-                    <input type="button" onClick={this.onSubmit} value="Login"/>
-                </form>
-                <div>
-                    Don&apos;t have an account? <Link to="./register">Register now</Link>
-                </div>
+                <Grid container direction="column" justifyContent="center" justify="center" alignItems="center"> 
+                    <Grid Item> 
+                        <Msg msg={msg}/>
+                    </Grid>
+                    <Grid Item>  
+                        <h1>Login</h1>
+                    </Grid> 
+                        <form method="POST" id="login">
+                            <label htmlFor="username">Username: </label>
+                            <input id="username" type="text" name="username" required/>
+                            <label htmlFor="password">Password: </label>
+                            <input id="password" type="password" name="password" required/>
+                            <input type="button" onClick={this.onSubmit} value="Login"/>                               
+                        </form>
+                   
+                    <Grid Item> 
+                        <div>
+                            Don&apos;t have an account? <Link to="./register">Register now</Link>
+                        </div>
+                    </Grid>
+                </Grid> 
             </>
         );
     }

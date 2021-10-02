@@ -28,7 +28,7 @@ export default class NavBar extends React.Component {
         if (JSON.stringify(user) === '{}') {
             return (
                 <>
-                    <AppBar>
+                    <AppBar style={{ background: '#2b6777' }}>
                         <Toolbar>
                             <Typography variant="h6">
                                 <Button color='inherit' href="/">Posts</Button>
@@ -43,7 +43,7 @@ export default class NavBar extends React.Component {
         }
         return (
             <>
-                <AppBar>
+                <AppBar style={{ background: '#2b6777' }}>
                     <Toolbar>
                         <Typography variant="h6">
                             <Button color='inherit' href="/">Posts</Button>
