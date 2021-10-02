@@ -1,0 +1,91 @@
+body {
+    background-color: hsl(36, 50%, 73%);
+    font-size: 18px;
+}
+
+nav a {
+    margin-left: 1%;
+    border: 1px solid hsl(36, 73%, 28%);
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    color: rgb(59, 38, 22);
+}
+
+nav a:hover {
+    background-color:hsl(29, 82%, 49%);
+    color: rgb(59, 38, 22);
+}
+
+h1, h2, h3 {
+    color: hsl(34, 56%, 19%);
+    font-style: italic;
+    padding-left: 2%;
+}
+
+a {
+    color: hsl(24, 65%, 36%);
+    text-decoration: none;
+}
+
+input:not([type="submit"]):not([type="button"]), select {
+    margin: 10px 10px;
+    width: 200px;
+}
+
+
+label {
+    display: block;
+}
+
+div.restaurant {
+    border: 2px solid hsl(36, 73%, 28%);
+    border-radius: 10%;
+    margin: 10px;
+    padding: 0.7%;
+}
+div#reservations {
+    border: 2px solid hsl(36, 73%, 28%);
+    margin: 10px;
+}
+
+div.restaurant div {
+    margin: 5px;
+}
+
+div#reservations div {
+    margin: 5px;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 10px;
+}
+
+img {
+    padding-left: 1%;
+    width: 300px;
+}
+
+.msg {
+    border: 1px solid gray;
+    margin: 10px;
+    margin-top: 30px;
+}
+
+form#logout {
+    display: inline;
+}
+
+input.tables {
+    background-color: gray;
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+input.tables:hover {
+    background-color: darkgrey;
+}

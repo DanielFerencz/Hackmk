@@ -1,0 +1,74 @@
+body {
+    background-color: rgb(243, 213, 174);
+}
+
+nav a {
+    border-radius: 10px;
+    border: 1px solid rgb(151, 71, 1);
+    padding: 10px;
+    transition: background-color 0.2s;
+}
+
+nav a:hover {
+    background-color:sienna;
+    color: rgb(59, 38, 22);
+}
+
+a {
+    color: #915757;
+    text-decoration: none;
+}
+
+input:not([type="submit"]):not([type="button"]), select {
+    margin: 10px 10px;
+    width: 200px;
+}
+
+
+label {
+    display: block;
+}
+
+.delete-button{
+    color: red;
+}
+
+div.restaurant {
+    border: 1px solid gray;
+    margin: 10px;
+}
+div#reservations {
+    border: 1px solid gray;
+    margin: 10px;
+}
+
+div.restaurant div {
+    margin: 5px;
+}
+
+div#reservations div {
+    margin: 5px;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 10px;
+}
+
+div.quiz > h2 {
+    margin: 2px;
+}
+
+img {
+    width: 300px;
+}
+
+.msg {
+    border: 1px solid gray;
+    margin: 10px;
+    margin-top: 30px;
+}
+
+form#logout {
+    display: inline;
+}

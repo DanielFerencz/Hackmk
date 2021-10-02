@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Register</title>
+</head>
+
+<body>
+    <nav>
+        <a href="./index.html">Restaurants</a>
+        <% if(!payload.username) {%>
+            <a href="./login"> Login</a>
+        <% } %> 
+    </nav>
+    <main>
+        <% if(msg.length>0) { %>
+            <div class="msg">
+            <label id="msg"><%= msg %> </label> 
+            </div>
+        <%} %>
+        <h1>Register</h1>
+        <form method="POST" action="/auth/register">
+            <label for="username">Username: </label> 
+            <input id="username" type="text" name="username" required>
+
+            <label for="password1">Password: </label> 
+            <input id="password1" type="password" name="password1" required>
+
+            <label for="password2">Password again: </label> 
+            <input id="password2" type="password" name="password2" required>
+
+            <input type="submit" value="Register">
+        </form>
+    </main>
+    <footer>
+        <p>Copyright 2021</p>
+    </footer>
+</body>
+
+</html>

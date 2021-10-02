@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    
+    <title>Restaurants</title>
+</head>
+<body>
+    
+    <nav>
+        <% if(payload.username) {%>
+            <% if(payload.role === 'admin') {%>
+                <a href="./create_restaurant">Create Restaurant</a>
+            <% } %> 
+            <a href="./create_reservation">Create Reservation</a>
+            <form method="POST" action="/auth/logout" id="logout">
+                <a href="#" onclick="logoutSubmit()">Logout: <%= payload.username %> (<%= payload.role %>)</a>
+            </form>
+        <% } else { %>
+            <a href="./login"> Login</a>
+            <a href="./register"> Register</a>
+        <% } %> 
+    </nav>
+    <main>
+        <% if(msg.length>0) { %>
+            <div class="msg">
+            <label id="msg"><%= msg %> </label> 
+            </div>
+        <%} %>
+        <h1>Restaurants</h1>
+        <div id="container">
+            <% if(restaurants.length === 0){ %>
+                <div class="restaurant">
+                    No restaurants in the database.
+                </div>
+            <% } %>
+            <% restaurants.forEach((rest)=> { %>
+                <div class="restaurant">
+                    <div class id="informations<%= rest._id %>">
+                        <h2>
+                            <a href="./restaurant_details?rest_id=<%= rest._id %> "><%= rest.name %></a>
+                        </h2>
+                        <div>Opening hours: <%= rest.open %> - <%= rest.close %> </div>
+                        <div class="city">City: <%= rest.city %></div>
+                    </div>
+                    <div><a href="#" onclick="showMore('<%= rest._id %>')">Show more</a></div>
+                </div>
+            <%}) %>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright 2021</p>
+    </footer>
+    <script src="/restaurants.js"></script>
+</body>
+</html>
