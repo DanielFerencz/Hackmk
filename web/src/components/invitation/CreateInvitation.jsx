@@ -5,6 +5,9 @@ import findUser from '../../service/user.js';
 import { createInvitation, findInvitations } from '../../service/invitation.js';
 import Msg from '../other/Msg.jsx';
 import { invitation } from '../../service/script.js';
+import {
+	Grid,
+} from "@mui/material";
 
 // Create invitation oldal-form
 export default class CreateInvitation extends React.Component {
@@ -135,39 +138,47 @@ export default class CreateInvitation extends React.Component {
         }
         return (
             <>
-                <Msg msg={msg}/>
-                <h1>Create Invitation</h1>
-                <form method="POST">
-                    <label htmlFor="name">Name: {user.username} </label>
-                    <input id="name" name="name" type="hidden" value={user.username}/>
-                    <br/>
+                <Grid container justifyContent="center" direction="column" alignItems="center">
+                    <Grid Item>
+                        <Msg msg={msg}/>
+                    </Grid> 
+                    <Grid Item>
+                        <h1>Create Invitation</h1>
+                    </Grid>
+                    <Grid Item>  
+                        <form method="POST">
+                            <label htmlFor="name">Name: {user.username} </label>
+                            <input id="name" name="name" type="hidden" value={user.username}/>
+                            <br/>
 
-                    <label htmlFor="id">Choose a post:</label>
-                    <select id="id" name="id" onChange={this.postChange}>
-                        <option value=''> Choose... </option>
-                        {posts.map((pst) => (
-                            <option value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </option>
-                        ))}
-                    </select>
+                            <label htmlFor="id">Choose a post:</label>
+                            <select id="id" name="id" onChange={this.postChange}>
+                                <option value=''> Choose... </option>
+                                {posts.map((pst) => (
+                                    <option value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </option>
+                                ))}
+                            </select>
 
-                    <label htmlFor="date">Invitation date: </label>
-                    <input id="date" type="date" name="date" value={invitationDate} onChange={this.changeInvitationDate} required/>
-                    <br/>
+                            <label htmlFor="date">Invitation date: </label>
+                            <input id="date" type="date" name="date" value={invitationDate} onChange={this.changeInvitationDate} required/>
+                            <br/>
 
-                    <label htmlFor="time">Invitation time: </label>
-                    <input id="time" type="time" name="time" value={invitationTime} onChange={this.changeInvitationTime} required/>
-                    <br/>
+                            <label htmlFor="time">Invitation time: </label>
+                            <input id="time" type="time" name="time" value={invitationTime} onChange={this.changeInvitationTime} required/>
+                            <br/>
 
-                    <label htmlFor="description"> Description: </label>
-                    <textarea rows="5" cols="50" id="description" type="text" name="description" value={description} placeholder="description" required/>
-                    <br/>
+                            <label htmlFor="description"> Description: </label>
+                            <textarea rows="5" cols="50" id="description" type="text" name="description" value={description} placeholder="description" required/>
+                            <br/>
 
-                    <label htmlFor="requirements"> Requirements: </label>
-                    <textarea id="requirements" type="text" name="requirements" value={requirements} placeholder="requirements" required/>
-                    <br/>
+                            <label htmlFor="requirements"> Requirements: </label>
+                            <textarea id="requirements" type="text" name="requirements" value={requirements} placeholder="requirements" required/>
+                            <br/>
 
-                    <input type="button" value="Send Invitation" onClick={this.onSubmit} />
-                </form>
+                            <input type="button" value="Send Invitation" onClick={this.onSubmit} />
+                        </form>
+                    </Grid> 
+                </Grid>
             </>
         );
     }
