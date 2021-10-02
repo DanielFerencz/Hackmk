@@ -3,6 +3,9 @@ import autoBind from 'auto-bind';
 import findUser from '../../service/user.js';
 import { deleteInvitation } from '../../service/deleteInvitation.js';
 import { findMyInvitations } from '../../service/invitation.js';
+import {
+	Grid,
+} from "@mui/material";
 
 // Sajat foglalasok betoltese
 export default class MyInvitations extends React.Component {
@@ -56,45 +59,67 @@ export default class MyInvitations extends React.Component {
         if (JSON.stringify(user) === '{}') {
             return (
                 <>
-                    <h1>Invitations: </h1>
-                    <div id="invitations">
-                        <div className="invitation">
-                            Log in to make invitations.
-                        </div>
-                    </div>
+                    <Grid container alignItems="center" justifyContent="cente" direction="column"> 
+                        <Grid Item> 
+                            <h1>Invitations: </h1>
+                        </Grid>
+                        <Grid Item>
+                            <div id="invitations">
+                                <div className="invitation">
+                                    Log in to make invitations.
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </>
             );
         }
         if (invitations.length === 0) {
             return (
                 <>
-                    <h1>Invitations: </h1>
-                    <div id="invitations">
-                        <div className="invitation">
-                            You have no registered invitations.
-                        </div>
-                    </div>
+                    <Grid container alignItems="center" justifyContent="cente" direction="column">
+                        <Grid Item> 
+                            <h1>Invitations: </h1>
+                        </Grid> 
+                        <Grid Item> 
+                            <div id="invitations">
+                                <div className="invitation">
+                                    You have no registered invitations.
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </>
             );
         }
         return (
             <>
-                <h1>Invitations: </h1>
-                <label htmlFor="status">Choose a status:</label>
-                <select id="status" name="status" onChange={this.statusChange}>
-                    <option value="" key="none"> Show every status </option>
-                    {Object.keys(statusDict).map((key) => (
-                        <option value={`${key}`} key={key}> {`${key} (${statusDict[key]})`} </option>
-                    ))}
-                </select>
-                <div id="invitations">
-                    {invitations.map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                        <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>&nbsp;
-                            <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
+                <Grid container alignItems="center" justifyContent="cente" direction="column">
+                    <Grid Item> 
+                        <h1>Invitations: </h1>
+                    </Grid>
+                    <Grid Item>
+                        <label htmlFor="status">Choose a status:</label>
+                    </Grid>
+                    <Grid Item>                    
+                        <select id="status" name="status" onChange={this.statusChange}>
+                            <option value="" key="none"> Show every status </option>
+                            {Object.keys(statusDict).map((key) => (
+                                <option value={`${key}`} key={key}> {`${key} (${statusDict[key]})`} </option>
+                            ))}
+                        </select>
+                    </Grid>
+                    <Grid Item>
+                        <div id="invitations">
+                            {invitations.map((inv) => (
+                                <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                                <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>&nbsp;
+                                    <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </Grid>
+                </Grid>
             </>
         );
     }
