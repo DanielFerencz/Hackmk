@@ -5,12 +5,12 @@ import morgan from 'morgan';
 import eformidable from 'express-formidable';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import * as database from './db/restaurantDB.js';
+import * as database from './db/freeCollabDB.js';
 import requestRoutes from './routes/views.js';
 import apiRoutes from './routes/api.js';
 import authRoutes from './routes/auth.js';
-import restaurantRoutes from './routes/restaurant.js';
-import reservationRoutes from './routes/reservation.js';
+import postRoutes from './routes/post.js';
+import invitationRoutes from './routes/invitation.js';
 import { decodeJWTToken } from './public/middlewares.js';
 
 // app letrehozasa, statikus folder keszitese
@@ -36,8 +36,8 @@ app.use(decodeJWTToken);
 app.use(requestRoutes);
 app.use('/api', apiRoutes);
 app.use('/api', authRoutes);
-app.use('/api', restaurantRoutes);
-app.use('/api', reservationRoutes);
+app.use('/api', postRoutes);
+app.use('/api', invitationRoutes);
 
 app.listen(8080, () => {
     console.log('Server listening on http://localhost:8080/');

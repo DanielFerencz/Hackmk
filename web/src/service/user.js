@@ -1,4 +1,4 @@
-import url from './restaurant.js';
+import url from './post.js';
 
 // user lekerese
 export default async function findUser() {

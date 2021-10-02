@@ -1,10 +1,10 @@
-import url from './restaurant.js';
+import url from './post.js';
 
 const formDataServerUrl = 'http://localhost:8080/uploadPhoto';
 
 // fenykepek listajanak lekerese
-export async function findPictures(restID) {
-    const response = await fetch(`${url}/pictures?rest_id=${restID}`);
+export async function findPictures(pstID) {
+    const response = await fetch(`${url}/pictures?pst_id=${pstID}`);
     const pictures = await response.json();
     if (response.status === 200) return pictures;
     return [];

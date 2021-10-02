@@ -2,11 +2,11 @@ import mongodb from 'mongodb';
 
 // Connection URL
 export const url = 'mongodb://localhost:27017/';
-export const dbName = 'restaurantDB';
-export const collName = 'restaurants';
+export const dbName = 'freeCollabDB';
+export const collName = 'posts';
 export const collPic = 'pictures';
 export const collUser = 'users';
-export const collReserv = 'reservations';
+export const collInvitation = 'invitations';
 
 let connection;
 
@@ -20,7 +20,7 @@ export default async function connectionToDB() {
 }
 connectionToDB();
 // mongoDB fuggvenyek, beszuras, torles, lekeres
-export function insertRestaurant(data) {
+export function insertPost(data) {
     return connection.collection(collName).insertOne(data);
 }
 
@@ -32,20 +32,20 @@ export function insertUser(data) {
     return connection.collection(collUser).insertOne(data);
 }
 
-export function insertReserv(data) {
-    return connection.collection(collReserv).insertOne(data);
+export function insertInvitation(data) {
+    return connection.collection(collInvitation).insertOne(data);
 }
 
-export function findAllRestaurants() {
+export function findAllPosts() {
     return connection.collection(collName).find().toArray();
 }
 
-export function findRestaurant(id) {
+export function findPost(id) {
     return connection.collection(collName).findOne({ _id: id });
 }
 
-export function findRestaurantByName(restName) {
-    return connection.collection(collName).findOne({ name: restName });
+export function findPostByName(postName) {
+    return connection.collection(collName).findOne({ name: postName });
 }
 
 export function findAllPictures() {
@@ -64,24 +64,24 @@ export function findUser(user) {
     return connection.collection(collUser).findOne({ name: user });
 }
 
-export function findReservations(iD) {
-    return connection.collection(collReserv).find({ id: iD }).toArray();
+export function findInvitations(iD) {
+    return connection.collection(collInvitation).find({ id: iD }).toArray();
 }
 
 export function findMyReservations(username) {
-    return connection.collection(collReserv).find({ name: username }).toArray();
+    return connection.collection(collInvitation).find({ name: username }).toArray();
 }
 
-export function findReservation(iD) {
-    return connection.collection(collReserv).findOne({ _id: mongodb.ObjectID(iD) });
+export function findInvitation(iD) {
+    return connection.collection(collInvitation).findOne({ _id: mongodb.ObjectID(iD) });
 }
 
-export function deleteReservation(iD) {
-    connection.collection(collReserv).deleteOne({ _id: mongodb.ObjectID(iD) });
+export function deleteInvitation(iD) {
+    connection.collection(collInvitation).deleteOne({ _id: mongodb.ObjectID(iD) });
 }
 
-export function acceptReservation(iD, updatedReser) {
-    return connection.collection(collReserv)
+export function acceptInvitation(iD, updatedReser) {
+    return connection.collection(collInvitation)
         .updateOne({ _id: mongodb.ObjectID(iD) }, updatedReser, { upsert: true });
 }
 

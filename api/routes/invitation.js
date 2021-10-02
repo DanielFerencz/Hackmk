@@ -1,21 +1,21 @@
 import express from 'express';
-import * as database from '../db/restaurantDB.js';
+import * as database from '../db/freeCollabDB.js';
 import * as middlewares from '../public/middlewares.js';
 import * as utilities from '../public/utilities.js';
 
 const router = express.Router();
 
 // Lekeri az osszes foglalast az adott vendeglore
-router.get('/reservations', async (req, res) => {
-    const reservations = await database.findReservations(parseInt(req.query.rest_id, 10));
-    res.send(reservations);
+router.get('/invitations', async (req, res) => {
+    const invitations = await database.findInvitations(parseInt(req.query.rest_id, 10));
+    res.send(invitations);
 });
 
 // Lekeri egy bejelentkezett user foglalasait
-router.get('/myReservations', async (req, res) => {
+router.get('/myInvitations', async (req, res) => {
     if (res.locals.payload.username) {
-        const reservations = await database.findMyReservations(res.locals.payload.username);
-        res.send(reservations);
+        const invitations = await database.findMyInvitations(res.locals.payload.username);
+        res.send(invitations);
     } else {
         res.status(403).json({
             msg: 'Forbidden action',
@@ -24,18 +24,18 @@ router.get('/myReservations', async (req, res) => {
 });
 
 // Foglalas torlese, admin kell legyen a user
-router.delete('/deleteReservation', async (req, res) => {
+router.delete('/deleteInvitation', async (req, res) => {
     try {
-        const reser = await database.findReservation(req.query.id);
+        const inv = await database.findInvitation(req.query.id);
 
-        if (reser) {
-            if (res.locals.payload.username !== reser.name) {
+        if (inv) {
+            if (res.locals.payload.username !== inv.name) {
                 return res.status(403).json({ message: 'Forbidden action' });
             }
         } else {
             return res.status(403).json({ message: 'Forbidden action' });
         }
-        database.deleteReservation(req.query.id);
+        database.deleteInvitation(req.query.id);
         return res.sendStatus(204);
     } catch (err) {
         return res.status(500).json({ message: err.message });
@@ -43,28 +43,28 @@ router.delete('/deleteReservation', async (req, res) => {
 });
 
 // Foglalas elfogadasa
-router.put('/acceptReservation', async (req, res) => {
+router.put('/acceptInvitation', async (req, res) => {
     try {
-        const reser = await database.findReservation(req.query.id);
-        const restaurant = await database.findRestaurant(reser.id);
+        const inv = await database.findInvitation(req.query.id);
+        const post = await database.findPost(inv.id);
 
-        if (reser) {
-            if (restaurant) {
-                if (res.locals.payload.id !== restaurant.adminID) {
+        if (inv) {
+            if (post) {
+                if (res.locals.payload.id !== post.adminID) {
                     return res.status(403).json({ msg: 'Forbidden action' });
                 }
             } else {
-                return res.status(404).json({ msg: 'No such restaurant' });
+                return res.status(404).json({ msg: 'No such post' });
             }
         } else {
-            return res.status(404).json({ msg: 'No such reservation' });
+            return res.status(404).json({ msg: 'No such invitation' });
         }
         const updatedReser = {
             $set: {
                 status: 'accepted',
             },
         };
-        database.acceptReservation(reser._id, updatedReser);
+        database.acceptInvitation(inv._id, updatedReser);
         return res.json({
             msg: 'OK',
         });
@@ -75,28 +75,28 @@ router.put('/acceptReservation', async (req, res) => {
 });
 
 // Foglalas elutasitasa
-router.put('/declineReservation', async (req, res) => {
+router.put('/declineInvitation', async (req, res) => {
     try {
-        const reser = await database.findReservation(req.query.id);
-        const restaurant = await database.findRestaurant(reser.id);
+        const inv = await database.findInvitation(req.query.id);
+        const post = await database.findPost(inv.id);
 
-        if (reser) {
-            if (restaurant) {
-                if (res.locals.payload.id !== restaurant.adminID) {
+        if (inv) {
+            if (post) {
+                if (res.locals.payload.id !== post.adminID) {
                     return res.status(403).json({ msg: 'Forbidden action' });
                 }
             } else {
-                return res.status(404).json({ msg: 'No such restaurant' });
+                return res.status(404).json({ msg: 'No such post' });
             }
         } else {
-            return res.status(404).json({ msg: 'No such reservation' });
+            return res.status(404).json({ msg: 'No such invitation' });
         }
         const updatedReser = {
             $set: {
                 status: 'declined',
             },
         };
-        database.acceptReservation(reser._id, updatedReser);
+        database.acceptInvitation(inv._id, updatedReser);
         return res.json({
             msg: 'OK',
         });
@@ -107,20 +107,20 @@ router.put('/declineReservation', async (req, res) => {
 });
 
 // Foglalas letrehozasa, adatok ellenorzese
-router.post('/createReservation', middlewares.reservationValidator, async (req, res) => {
+router.post('/createInvitation', middlewares.invitationValidator, async (req, res) => {
     let msg;
     try {
         const ok = await utilities.containsId(req.body.id);
         if (!ok) {
-            msg = 'The restaurant id doesn\'t exists!';
+            msg = 'The post id doesn\'t exists!';
             return res.status(404).json({
                 msg,
             });
         }
 
-        const restaurant = await utilities.fromRestaurants(req.body.id);
+        const post = await utilities.fromPosts(req.body.id);
 
-        msg = utilities.reservationValidator(req.body, restaurant);
+        msg = utilities.invitationValidator(req.body, post);
 
         if (msg !== '') {
             return res.status(404).json({
@@ -128,12 +128,12 @@ router.post('/createReservation', middlewares.reservationValidator, async (req, 
             });
         }
 
-        let reservations = await database.findReservations(restaurant._id);
-        reservations = reservations.filter((reser) => reser.status === 'accepted');
-        for (let i = 0; i < reservations.length; i += 1) {
-            if (reservations[i].date === req.body.date
-                && reservations[i].table === req.body.table) {
-                msg = 'That table is already reserved!';
+        let invitations = await database.findInvitations(post._id);
+        invitations = invitations.filter((inv) => inv.status === 'accepted');
+        for (let i = 0; i < invitations.length; i += 1) {
+            if (invitations[i].date === req.body.date
+                && invitations[i].table === req.body.table) {
+                msg = 'That table is already invved!';
                 return res.status(401).json({
                     msg,
                 });
@@ -141,10 +141,10 @@ router.post('/createReservation', middlewares.reservationValidator, async (req, 
         }
         const { body } = req;
         body.status = 'pending';
-        body.restName = restaurant.name;
+        body.restName = post.name;
         await database.insertReserv(body);
 
-        msg = 'Reservation accepted';
+        msg = 'Invitation accepted';
         return res.status(200).json({
             msg,
         });

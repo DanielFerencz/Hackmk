@@ -1,5 +1,5 @@
 import React from 'react';
-import url from '../../service/restaurant.js';
+import url from '../../service/post.js';
 
 // Kepek megjelenitese
 export default class Pictures extends React.Component {

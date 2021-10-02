@@ -1,12 +1,12 @@
 import express from 'express';
-import * as database from '../db/restaurantDB.js';
+import * as database from '../db/freeCollabDB.js';
 
 const router = express.Router();
 
 // Leker tobb informaciot a vendeglorol
 router.get('/getMoreInfo', async (req, res) => {
     try {
-        const info = await database.findRestaurant(parseInt(req.query.id, 10));
+        const info = await database.findPost(parseInt(req.query.id, 10));
         res.send(info);
     } catch (err) {
         res.status(500).json({ message: err.message });

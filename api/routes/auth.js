@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import * as database from '../db/restaurantDB.js';
+import * as database from '../db/freeCollabDB.js';
 import secret from '../util/config.js';
 import * as middlewares from '../public/middlewares.js';
 

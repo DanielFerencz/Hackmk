@@ -28,7 +28,7 @@ export default class NavBar extends React.Component {
         if (JSON.stringify(user) === '{}') {
             return (
                 <nav>
-                    <Link to="/">Restaurants</Link>
+                    <Link to="/">Posts</Link>
                     <Link to="/login"> Login</Link>
                     <Link to="/register"> Register</Link>
                 </nav>
@@ -36,10 +36,10 @@ export default class NavBar extends React.Component {
         }
         return (
             <nav>
-                <Link to="/">Restaurants</Link>
-                {(user.role === 'admin') ? <Link to="/create_restaurant">Create Restaurant</Link> : ''}
-                <Link to="/create_reservation">Create Reservation</Link>
-                <Link to="/my_reservations">My Reservations</Link>
+                <Link to="/">Posts</Link>
+                {(user.role === 'admin') ? <Link to="/create_post">Create Post</Link> : ''}
+                <Link to="/create_invitation">Create Invitation</Link>
+                <Link to="/my_invitations">My Invitations</Link>
                 <Link to="/login" onClick={this.onSubmit}>Logout: {user.username} ({user.role})</Link>
             </nav>
         );

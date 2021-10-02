@@ -41,7 +41,7 @@ export function registerValidator(req, res, next) {
 }
 
 // A vendeglo letrehozasakor leelenorzi az adatok jelenletet
-export function restaurantValidator(req, res, next) {
+export function postValidator(req, res, next) {
     if (res.locals.payload.role !== 'admin') {
         return res.status(403).json({
             msg: 'Forbidden action',
@@ -74,7 +74,7 @@ export function restaurantValidator(req, res, next) {
 }
 
 // Egy foglalas adatait ellenorzi le
-export function reservationValidator(req, res, next) {
+export function invitationValidator(req, res, next) {
     let msg = '';
     if (!res.locals.payload.role) {
         msg = 'Forbidden action';

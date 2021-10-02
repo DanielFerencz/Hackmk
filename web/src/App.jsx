@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NavBar from './components/other/NavBar.jsx';
-import Restaurants from './components/restaurant/Restaurants.jsx';
+import Posts from './components/post/Posts.jsx';
 import Footer from './components/other/Footer.jsx';
 import Login from './components/other/Login.jsx';
 import Register from './components/other/Register.jsx';
-import RestaurantDetails from './components/restaurant/RestaurantDetails.jsx';
-import CreateRestaurant from './components/restaurant/CreateRestaurant.jsx';
-import CreateReservation from './components/reservation/CreateReservation.jsx';
-import MyReservations from './components/reservation/MyReservations.jsx';
+import PostDetails from './components/post/PostDetails.jsx';
+import CreatePost from './components/post/CreatePost.jsx';
+import CreateInvitation from './components/invitation/CreateInvitation.jsx';
+import MyInvitations from './components/invitation/MyInvitations.jsx';
 
 // Az alap applikacio, main betoltese
 export default function App() {
@@ -17,13 +17,13 @@ export default function App() {
             <NavBar />
             <main>
                 <Switch>
-                    <Route exact path="/" component={Restaurants} />
+                    <Route exact path="/" component={Posts} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
-                    <Route exact path="/my_reservations" component={MyReservations} />
-                    <Route exact path="/create_restaurant" component={CreateRestaurant} />
-                    <Route exact path="/create_reservation" component={CreateReservation} />
-                    <Route path="/restaurant_details/:restID" component={RestaurantDetails} />
+                    <Route exact path="/my_invitations" component={MyInvitations} />
+                    <Route exact path="/create_post" component={CreatePost} />
+                    <Route exact path="/create_invitation" component={CreateInvitation} />
+                    <Route path="/post_details/:pstID" component={PostDetails} />
                 </Switch>
             </main>
             <Footer />

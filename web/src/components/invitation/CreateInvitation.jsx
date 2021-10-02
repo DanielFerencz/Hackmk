@@ -1,25 +1,25 @@
 import React from 'react';
 import autoBind from 'auto-bind';
-import { findAllRestaurants } from '../../service/restaurant.js';
+import { findAllPosts } from '../../service/post.js';
 import findUser from '../../service/user.js';
-import { createReservation, findReservations } from '../../service/reservation.js';
+import { createInvitation, findInvitations } from '../../service/invitation.js';
 import Msg from '../other/Msg.jsx';
 
-// Create reservation oldal-form
-export default class CreateReservation extends React.Component {
+// Create invitation oldal-form
+export default class CreateInvitation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             msg: '',
-            restaurants: [],
-            selectedRestaurant: null,
+            posts: [],
+            selectedPost: null,
             user: null,
             tableRows: [],
             tableColumns: [],
             tables: [],
             selectedTable: -1,
-            reservations: [],
-            reservationDate: '',
+            invitations: [],
+            invitationDate: '',
             selectedDateTables: [],
         };
         autoBind(this);
@@ -27,20 +27,20 @@ export default class CreateReservation extends React.Component {
 
     // Kezdeti adatok betoltese, user, vendeglok, azokra meg a foglalasok
     async componentDidMount() {
-        const restaurants = await findAllRestaurants();
-        let { reservations } = this.state;
+        const posts = await findAllPosts();
+        let { invitations } = this.state;
         const { tableColumns } = this.state;
         for (let i = 0; i < 10; i += 1) {
             tableColumns.push(i);
         }
-        this.setState({ restaurants, tableColumns });
-        if (restaurants.length > 0) {
-            const selectedRestaurant = restaurants[0];
-            reservations = await findReservations(selectedRestaurant._id);
-            this.setState({ reservations });
-            this.setState({ selectedRestaurant });
-            this.setTables(selectedRestaurant);
-            this.reservationFilter('');
+        this.setState({ posts, tableColumns });
+        if (posts.length > 0) {
+            const selectedPost = posts[0];
+            invitations = await findInvitations(selectedPost._id);
+            this.setState({ invitations });
+            this.setState({ selectedPost });
+            this.setTables(selectedPost);
+            this.invitationFilter('');
         }
         const user = await findUser();
         this.setState({ user });
@@ -52,9 +52,9 @@ export default class CreateReservation extends React.Component {
         if (this.state.selectedTable === -1) {
             this.setState({ msg: 'No selected table!' });
         } else {
-            const msg = await createReservation(this.state.selectedTable);
+            const msg = await createInvitation(this.state.selectedTable);
             if (msg === 'OK') {
-                this.props.history.push(`/restaurant_details/${document.getElementById('id').value}`);
+                this.props.history.push(`/post_details/${document.getElementById('id').value}`);
             } else {
                 this.setState({ msg });
             }
@@ -62,13 +62,13 @@ export default class CreateReservation extends React.Component {
     }
 
     // Az asztalok sorrendje
-    setTables(selectedRestaurant) {
+    setTables(selectedPost) {
         const tableRows = [];
         const tables = [];
         let rowCount = 0;
         for (let i = 0; i < 100; i += 1) {
-            tables.push(selectedRestaurant.structure[i]);
-            if (selectedRestaurant.structure[i] === 1) {
+            tables.push(selectedPost.structure[i]);
+            if (selectedPost.structure[i] === 1) {
                 rowCount = Math.floor(i / 10) + 1;
             }
         }
@@ -82,22 +82,22 @@ export default class CreateReservation extends React.Component {
     }
 
     // Ha valtoztatunk vendeglot...
-    async restaurantChange(event) {
-        const { restaurants } = this.state;
-        let { selectedRestaurant } = this.state;
-        const restID = event.target.value;
-        for (let i = 0; i < restaurants.length; i += 1) {
-            if (restaurants[i]._id === parseInt(restID, 10)) {
-                selectedRestaurant = restaurants[i];
+    async postChange(event) {
+        const { posts } = this.state;
+        let { selectedPost } = this.state;
+        const pstID = event.target.value;
+        for (let i = 0; i < posts.length; i += 1) {
+            if (posts[i]._id === parseInt(pstID, 10)) {
+                selectedPost = posts[i];
             }
         }
-        const reservations = await findReservations(selectedRestaurant._id);
+        const invitations = await findInvitations(selectedPost._id);
         const selectedTable = -1;
-        this.setState({ reservations });
+        this.setState({ invitations });
         this.setState({ selectedTable });
-        this.setState({ selectedRestaurant });
-        this.setTables(selectedRestaurant);
-        this.reservationFilter(this.state.reservationDate);
+        this.setState({ selectedPost });
+        this.setTables(selectedPost);
+        this.invitationFilter(this.state.invitationDate);
     }
 
     // Ha rakattintunk egy asztalra
@@ -125,34 +125,34 @@ export default class CreateReservation extends React.Component {
     }
 
     // Ha a datumot kicsereljuk, betolti a foglaltakat
-    reservationFilter(reservationDate) {
+    invitationFilter(invitationDate) {
         const { tables } = this.state;
         const selectedDateTables = [];
-        if (reservationDate === '') {
+        if (invitationDate === '') {
             for (let i = 0; i < 100; i += 1) {
                 selectedDateTables.push(tables[i]);
             }
             this.setState({ selectedDateTables });
         } else {
-            const dateReservations = this.state.reservations.filter((reser) => (reser.date === reservationDate && reser.status === 'accepted'));
+            const dateInvitations = this.state.invitations.filter((inv) => (inv.date === invitationDate && inv.status === 'accepted'));
             for (let i = 0; i < 100; i += 1) {
                 selectedDateTables.push(tables[i]);
             }
-            for (let i = 0; i < dateReservations.length; i += 1) {
-                selectedDateTables[dateReservations[i].table] = 3;
+            for (let i = 0; i < dateInvitations.length; i += 1) {
+                selectedDateTables[dateInvitations[i].table] = 3;
             }
             this.setState({ selectedDateTables });
         }
     }
 
     // Datum csere
-    changeReservationDate(event) {
+    changeInvitationDate(event) {
         const selectedTable = -1;
         this.setState({ selectedTable });
-        let { reservationDate } = this.state;
-        reservationDate = event.target.value;
-        this.setState({ reservationDate });
-        this.reservationFilter(reservationDate);
+        let { invitationDate } = this.state;
+        invitationDate = event.target.value;
+        this.setState({ invitationDate });
+        this.invitationFilter(invitationDate);
     }
 
     // Asztalok szine..
@@ -188,17 +188,17 @@ export default class CreateReservation extends React.Component {
     // oldal kinezete
     render() {
         const {
-            msg, restaurants, user, tableRows, tableColumns,
-            selectedDateTables, reservationDate, selectedRestaurant,
+            msg, posts, user, tableRows, tableColumns,
+            selectedDateTables, invitationDate, selectedPost,
         } = this.state;
 
-        if (!user || !selectedRestaurant) {
-            return <div>Create reservation not loaded yet...</div>;
+        if (!user || !selectedPost) {
+            return <div>Create invitation not loaded yet...</div>;
         }
 
-        if (restaurants.length === 0) {
+        if (posts.length === 0) {
             return (
-                <Msg msg={'No restaurants in the database'}/>
+                <Msg msg={'No posts in the database'}/>
             );
         }
 
@@ -210,24 +210,24 @@ export default class CreateReservation extends React.Component {
         return (
             <>
                 <Msg msg={msg}/>
-                <h1>Create Reservation</h1>
+                <h1>Create Invitation</h1>
                 <form method="POST">
                     <label htmlFor="name">Name: {user.username} </label>
                     <input id="name" name="name" type="hidden" value={user.username}/>
                     <br/>
 
-                    <label htmlFor="id">Choose a restaurant:</label>
-                    <select id="id" name="id" onChange={this.restaurantChange}>
-                        {restaurants.map((rest) => (
-                            <option value={`${rest._id}`} key={rest._id}> {`${rest.name}`} </option>
+                    <label htmlFor="id">Choose a post:</label>
+                    <select id="id" name="id" onChange={this.postChange}>
+                        {posts.map((pst) => (
+                            <option value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </option>
                         ))}
                     </select>
 
-                    <label htmlFor="date">Reservation date: </label>
-                    <input id="date" type="date" name="date" value={reservationDate} onChange={this.changeReservationDate} required/>
+                    <label htmlFor="date">Invitation date: </label>
+                    <input id="date" type="date" name="date" value={invitationDate} onChange={this.changeInvitationDate} required/>
                     <br/>
 
-                    <label htmlFor="time">Reservation time: </label>
+                    <label htmlFor="time">Invitation time: </label>
                     <input id="time" type="time" name="time" required/>
                     <br/>
 
@@ -242,7 +242,7 @@ export default class CreateReservation extends React.Component {
                         </tbody>
                     </table>
 
-                    <input type="button" value="Send Reservation" onClick={this.onSubmit} />
+                    <input type="button" value="Send Invitation" onClick={this.onSubmit} />
                 </form>
             </>
         );

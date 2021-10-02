@@ -1,15 +1,15 @@
 import React from 'react';
 import autoBind from 'auto-bind';
 import findUser from '../../service/user.js';
-import { deleteReservation } from '../../service/deleteReservation.js';
-import { findMyReservations } from '../../service/reservation.js';
+import { deleteInvitation } from '../../service/deleteInvitation.js';
+import { findMyInvitations } from '../../service/invitation.js';
 
 // Sajat foglalasok betoltese
-export default class MyReservations extends React.Component {
+export default class MyInvitations extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            reservations: [],
+            invitations: [],
             user: {},
             msg: '',
             statusFilter: '',
@@ -21,8 +21,8 @@ export default class MyReservations extends React.Component {
     async componentDidMount() {
         const user = await findUser();
         this.setState({ user });
-        const reservations = await findMyReservations();
-        this.setState({ reservations });
+        const invitations = await findMyInvitations();
+        this.setState({ invitations });
         this.makeDict();
     }
 
@@ -36,12 +36,12 @@ export default class MyReservations extends React.Component {
     // A statushoz tartozo szamok
     makeDict() {
         const dict = {};
-        const { reservations } = this.state;
-        reservations.forEach((reser) => {
-            dict[reser.status] = 0;
+        const { invitations } = this.state;
+        invitations.forEach((inv) => {
+            dict[inv.status] = 0;
         });
-        reservations.forEach((reser) => {
-            dict[reser.status] += 1;
+        invitations.forEach((inv) => {
+            dict[inv.status] += 1;
         });
         this.setState({ statusDict: dict });
     }
@@ -51,27 +51,27 @@ export default class MyReservations extends React.Component {
         const { statusFilter } = this.state;
         const { statusDict } = this.state;
         const { user } = this.state;
-        const reservations = this.state.reservations.filter((reser) => (reser.status === statusFilter || statusFilter === ''));
+        const invitations = this.state.invitations.filter((inv) => (inv.status === statusFilter || statusFilter === ''));
 
         if (JSON.stringify(user) === '{}') {
             return (
                 <>
-                    <h1>Reservations: </h1>
-                    <div id="reservations">
-                        <div className="reservation">
-                            Log in to make reservations.
+                    <h1>Invitations: </h1>
+                    <div id="invitations">
+                        <div className="invitation">
+                            Log in to make invitations.
                         </div>
                     </div>
                 </>
             );
         }
-        if (reservations.length === 0) {
+        if (invitations.length === 0) {
             return (
                 <>
-                    <h1>Reservations: </h1>
-                    <div id="reservations">
-                        <div className="reservation">
-                            You have no registered reservations.
+                    <h1>Invitations: </h1>
+                    <div id="invitations">
+                        <div className="invitation">
+                            You have no registered invitations.
                         </div>
                     </div>
                 </>
@@ -79,7 +79,7 @@ export default class MyReservations extends React.Component {
         }
         return (
             <>
-                <h1>Reservations: </h1>
+                <h1>Invitations: </h1>
                 <label htmlFor="status">Choose a status:</label>
                 <select id="status" name="status" onChange={this.statusChange}>
                     <option value="" key="none"> Show every status </option>
@@ -87,10 +87,10 @@ export default class MyReservations extends React.Component {
                         <option value={`${key}`} key={key}> {`${key} (${statusDict[key]})`} </option>
                     ))}
                 </select>
-                <div id="reservations">
-                    {reservations.map((reser) => (
-                        <div className="reservation" key={reser._id} id={`${reser._id}`}>Restaurant: <b>{reser.restName}</b>, Name:  {reser.name} , date:  {reser.date} , time:  {reser.time}, status: <b>{reser.status}</b>&nbsp;
-                            <a href="#" onClick={() => deleteReservation(reser._id) }>delete Reservation</a>
+                <div id="invitations">
+                    {invitations.map((inv) => (
+                        <div className="invitation" key={inv._id} id={`${inv._id}`}>Post: <b>{inv.pstName}</b>, Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, status: <b>{inv.status}</b>&nbsp;
+                            <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
                         </div>
                     ))}
                 </div>

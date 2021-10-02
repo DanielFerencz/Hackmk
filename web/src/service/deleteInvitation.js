@@ -1,8 +1,8 @@
-import url from './restaurant.js';
+import url from './post.js';
 
 // egy foglalas torlesenek a menete
-export async function deleteReservation(reserId) {
-    const resp = await fetch(`${url}/deleteReservation?id=${reserId}`, {
+export async function deleteInvitation(invId) {
+    const resp = await fetch(`${url}/deleteInvitation?id=${invId}`, {
         method: 'DELETE',
         mode: 'cors',
         credentials: 'include',
@@ -10,27 +10,27 @@ export async function deleteReservation(reserId) {
 
     if (resp.status === 204) {
         // const ev = event.target.parentNode;
-        const ev = document.getElementById(`${reserId}`);
+        const ev = document.getElementById(`${invId}`);
         ev.remove();
-        if (document.getElementsByClassName('reservation').length === 0) {
-            const reservations = document.getElementById('reservations');
+        if (document.getElementsByClassName('invitation').length === 0) {
+            const invitations = document.getElementById('invitations');
             const div1 = document.createElement('div');
-            div1.setAttribute('class', 'reservation');
-            const text1 = document.createTextNode('No registered reservations in the database.');
+            div1.setAttribute('class', 'invitation');
+            const text1 = document.createTextNode('No registered invitations in the database.');
             div1.appendChild(text1);
             if (!document.getElementById('deleted')) {
-                reservations.appendChild(div1);
+                invitations.appendChild(div1);
             } else {
-                reservations.insertBefore(div1, reservations.firstChild);
+                invitations.insertBefore(div1, invitations.firstChild);
             }
         }
         if (!document.getElementById('deleted')) {
-            const reservations = document.getElementById('reservations');
+            const invitations = document.getElementById('invitations');
             const div1 = document.createElement('div');
             div1.setAttribute('id', 'deleted');
-            const text1 = document.createTextNode('1 reservation deleted');
+            const text1 = document.createTextNode('1 invitation deleted');
             div1.appendChild(text1);
-            reservations.appendChild(div1);
+            invitations.appendChild(div1);
         }
     } else {
         const body = await resp.json();
@@ -40,8 +40,8 @@ export async function deleteReservation(reserId) {
 }
 
 // Foglalas elfogadasa
-export async function acceptReservation(reserId) {
-    const resp = await fetch(`${url}/acceptReservation?id=${reserId}`, {
+export async function acceptInvitation(invId) {
+    const resp = await fetch(`${url}/acceptInvitation?id=${invId}`, {
         method: 'PUT',
         mode: 'cors',
         credentials: 'include',
@@ -54,8 +54,8 @@ export async function acceptReservation(reserId) {
 }
 
 // Foglalas elutasitasa
-export async function declineReservation(reserId) {
-    const resp = await fetch(`${url}/declineReservation?id=${reserId}`, {
+export async function declineInvitation(invId) {
+    const resp = await fetch(`${url}/declineInvitation?id=${invId}`, {
         method: 'PUT',
         mode: 'cors',
         credentials: 'include',

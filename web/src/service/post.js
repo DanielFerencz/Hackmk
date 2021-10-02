@@ -1,34 +1,34 @@
 export const apiServerUrl = 'http://localhost:8080/api';
 
 // Az osszes vendeglo lekerese
-export async function findAllRestaurants() {
-    const response = await fetch(`${apiServerUrl}/restaurants`);
-    const restaurants = await response.json();
-    if (response.status === 200) return restaurants;
+export async function findAllPosts() {
+    const response = await fetch(`${apiServerUrl}/posts`);
+    const posts = await response.json();
+    if (response.status === 200) return posts;
     return [];
 }
 
 // Egy vendeglo adatai
-export async function findRestaurant(restID) {
-    const response = await fetch(`${apiServerUrl}/restaurant?rest_id=${restID}`);
-    const restaurant = await response.json();
+export async function findPost(pstID) {
+    const response = await fetch(`${apiServerUrl}/post?pst_id=${pstID}`);
+    const post = await response.json();
 
     if (response.status === 200) {
-        return restaurant;
+        return post;
     }
     return {};
 }
 
 // Vendeglo letrehozasa, elkuldese
-export async function createRestaurant(restaurant) {
-    const response = await fetch(`${apiServerUrl}/createRestaurant`, {
+export async function createPost(post) {
+    const response = await fetch(`${apiServerUrl}/createPost`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(restaurant),
+        body: JSON.stringify(post),
     });
     const body = await response.json();
     if (response.status < 400) {

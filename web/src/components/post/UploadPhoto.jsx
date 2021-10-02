@@ -17,7 +17,7 @@ export default class UploadPhoto extends React.Component {
 
     // Adatok betoltese
     async componentDidMount() {
-        const pictures = await findPictures(this.props.restaurant._id);
+        const pictures = await findPictures(this.props.post._id);
         this.setState({ pictures });
     }
 
@@ -36,7 +36,7 @@ export default class UploadPhoto extends React.Component {
     // A szerkezet renderelese
     render() {
         const { msg } = this.state;
-        const { restaurant } = this.props;
+        const { post } = this.props;
         const { user } = this.props;
 
         if (JSON.stringify(user) === '{}') {
@@ -46,7 +46,7 @@ export default class UploadPhoto extends React.Component {
                 </>
             );
         }
-        if (user.role !== 'admin' || user.id !== restaurant.adminID) {
+        if (user.role !== 'admin' || user.id !== post.adminID) {
             return (
                 <>
                     <Pictures pictures={this.state.pictures}/>
@@ -59,7 +59,7 @@ export default class UploadPhoto extends React.Component {
                 <Msg msg={msg}/>
                 <h3>Upload Photo</h3>
                 <form method="POST" id='photoForm' encType="multipart/form-data">
-                    <input id="id" type="hidden" name="id" placeholder="Restaurant ID" value= {restaurant._id} />
+                    <input id="id" type="hidden" name="id" placeholder="Post ID" value= {post._id} />
                     <label htmlFor="photo"> Photo: </label>
                     <input id="photo" type="file" name="photo" required/>
                     <br/>

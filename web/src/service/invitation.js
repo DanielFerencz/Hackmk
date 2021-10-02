@@ -1,27 +1,27 @@
-import url from './restaurant.js';
+import url from './post.js';
 
 // Foglalasok lekerese egy vendeglohoz
-export async function findReservations(restID) {
-    const response = await fetch(`${url}/reservations?rest_id=${restID}`);
-    const reservations = await response.json();
-    if (response.status === 200) return reservations;
+export async function findInvitations(pstID) {
+    const response = await fetch(`${url}/invitations?pst_id=${pstID}`);
+    const invitations = await response.json();
+    if (response.status === 200) return invitations;
     return [];
 }
 
 // A sajat user foglalasai
-export async function findMyReservations() {
-    const response = await fetch(`${url}/myReservations`, {
+export async function findMyInvitations() {
+    const response = await fetch(`${url}/myInvitations`, {
         mode: 'cors',
         credentials: 'include',
     });
-    const reservations = await response.json();
-    if (response.status === 200) return reservations;
+    const invitations = await response.json();
+    if (response.status === 200) return invitations;
     return [];
 }
 
 // foglalas elkuldese
-export async function createReservation(index) {
-    const reservation = {
+export async function createInvitation(index) {
+    const invitation = {
         name: document.getElementById('name').value,
         id: document.getElementById('id').value,
         date: document.getElementById('date').value,
@@ -29,14 +29,14 @@ export async function createReservation(index) {
         table: index,
     };
 
-    const response = await fetch(`${url}/createReservation`, {
+    const response = await fetch(`${url}/createInvitation`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(reservation),
+        body: JSON.stringify(invitation),
     });
     const body = await response.json();
     if (response.status < 400) {

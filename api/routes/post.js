@@ -1,23 +1,23 @@
 import express from 'express';
-import * as database from '../db/restaurantDB.js';
+import * as database from '../db/freeCollabDB.js';
 import * as middlewares from '../public/middlewares.js';
 import * as utilities from '../public/utilities.js';
 
 const router = express.Router();
 
-let restID = 0;
+let postID = 0;
 
 // Az osszes vendeglo lekerese
-router.get('/restaurants', async (req, res) => {
-    const restaurants = await database.findAllRestaurants();
-    return res.send(restaurants);
+router.get('/posts', async (req, res) => {
+    const posts = await database.findAllPosts();
+    return res.send(posts);
 });
 
 // egy vendeglo lekerese
-router.get('/restaurant', async (req, res) => {
-    const restaurant = await database.findRestaurant(parseInt(req.query.rest_id, 10));
-    if (restaurant) {
-        return res.send(restaurant);
+router.get('/post', async (req, res) => {
+    const post = await database.findPost(parseInt(req.query.rest_id, 10));
+    if (post) {
+        return res.send(post);
     }
     return res.status(404).json({
         msg: 'Not found',
@@ -25,16 +25,16 @@ router.get('/restaurant', async (req, res) => {
 });
 
 // vendeglo letrehozasa, adatok ellenorzese
-router.post('/createRestaurant', middlewares.restaurantValidator, async (req, res) => {
+router.post('/createPost', middlewares.postValidator, async (req, res) => {
     let ok;
     let msg;
     try {
-        ok = await utilities.containsRestaurant(req.body.name);
+        ok = await utilities.containsPost(req.body.name);
     } catch (err) {
         console.log(err);
     }
     if (ok) {
-        msg = 'The restaurant name already exists!';
+        msg = 'The post name already exists!';
         return res.status(401).json({
             msg,
         });
@@ -57,13 +57,13 @@ router.post('/createRestaurant', middlewares.restaurantValidator, async (req, re
     try {
         const result = await database.findMaxID();
         if (!result[0]) {
-            restID = 0;
+            postID = 0;
         } else {
-            restID = result[0]._id + 1;
+            postID = result[0]._id + 1;
         }
-        body._id = restID;
-        await database.insertRestaurant(body);
-        msg = 'Restaurant created!';
+        body._id = postID;
+        await database.insertPost(body);
+        msg = 'Post created!';
         return res.status(200).json({
             msg,
         });

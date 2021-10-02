@@ -1,4 +1,4 @@
-import url from './restaurant.js';
+import url from './post.js';
 
 // Login esemeny elkuldese
 export async function loginSubmit() {
