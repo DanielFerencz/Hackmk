@@ -47,7 +47,7 @@ export function postValidator(req, res, next) {
             msg: 'Forbidden action',
         });
     }
-    const fields = ['adminID', 'name', 'genre', 'game', 'city', 'email', 'telefon'];
+    const fields = ['adminID', 'name', 'genre', 'game', 'city', 'email', 'telefon', 'description'];
     let msg = '';
     fields.forEach((field) => {
         if (req.body[field] === undefined) {
@@ -73,7 +73,7 @@ export function invitationValidator(req, res, next) {
         });
     }
 
-    const fields = ['name', 'id', 'date', 'time'];
+    const fields = ['name', 'id', 'date', 'time', 'description', 'requirements'];
     fields.forEach((field) => {
         if (req.body[field] === undefined) {
             msg = `The ${field} field is empty!`;

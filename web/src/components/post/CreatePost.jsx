@@ -87,6 +87,10 @@ export default class CreatePost extends React.Component {
                     <input id="telefon" type="tel" name="telefon" placeholder="Telefon number" value={post.telefon} onChange={this.onChange} required/>
                     <br/>
 
+                    <label htmlFor="description"> Description: </label>
+                    <textarea id="description" type="text" name="description" placeholder="description" value={post.description} onChange={this.onChange} required/>
+                    <br/>
+
                     
                     <input type="button" onClick={this.onSubmit} value="Create Post" />
                 </form>

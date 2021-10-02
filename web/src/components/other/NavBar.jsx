@@ -39,8 +39,8 @@ export default class NavBar extends React.Component {
                 <Link to="/">Posts</Link>
                 {(user.role === 'admin') ? <Link to="/create_post">Create Post</Link> : ''}
                 {(user.role === 'user') ? <Link to="/create_invitation">Create Invitation</Link> : ''}
-                {(user.role === 'user') ? <Link to="/my_invitations">My Invitations</Link> : ''}
-                <Link to="/login" onClick={this.onSubmit}>Logout: {user.username} ({user.role})</Link>
+                {(user.role === 'user') ? <Link to="/my_invitations">Sent Invitations</Link> : ''}
+                <Link to="/login" onClick={this.onSubmit}>Logout: {user.username} ({(user.role === 'admin') ? 'player' : 'team'})</Link>
             </nav>
         );
     }

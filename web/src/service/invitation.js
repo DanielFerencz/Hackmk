@@ -20,13 +20,14 @@ export async function findMyInvitations() {
 }
 
 // foglalas elkuldese
-export async function createInvitation(index) {
+export async function createInvitation() {
     const invitation = {
         name: document.getElementById('name').value,
         id: document.getElementById('id').value,
         date: document.getElementById('date').value,
         time: document.getElementById('time').value,
-        table: index,
+        description: document.getElementById('description').value,
+        requirements: document.getElementById('requirements').value,
     };
 
     const response = await fetch(`${url}/createInvitation`, {

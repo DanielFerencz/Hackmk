@@ -43,11 +43,12 @@ export default class PostDetails extends React.Component {
 
                 <h1>{post.name}</h1>
                 <div className="post">
-                    <div className="city">City:  {post.city} </div>
-                    <div>Str.  {post.street} </div>
-                    <div>Nr.  {post.number} </div>
+                    <div>Game:  {post.game} </div>
+                    <div>Genre:  {post.genre} </div>
+                    <div>City:  {post.city} </div>
+                    <div>Email: {post.email} </div>
                     <div>Tel:  {post.telefon} </div>
-                    <div>Opening hours:  {post.open}  -  {post.close}  </div>
+                    <div>Description: <br/> <textarea rows="5" cols="50" value={post.description}/> </div>
                 </div>
 
                 <Invitations post={post}/>

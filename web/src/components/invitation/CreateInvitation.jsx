@@ -4,6 +4,7 @@ import { findAllPosts } from '../../service/post.js';
 import findUser from '../../service/user.js';
 import { createInvitation, findInvitations } from '../../service/invitation.js';
 import Msg from '../other/Msg.jsx';
+import { invitation } from '../../service/script.js';
 
 // Create invitation oldal-form
 export default class CreateInvitation extends React.Component {
@@ -16,6 +17,10 @@ export default class CreateInvitation extends React.Component {
             user: null,
             invitations: [],
             invitationDate: '',
+            invitationTime: '',
+            description: '',
+            requirements: 'Stable internet connection',
+            invit: '',
         };
         autoBind(this);
     }
@@ -38,15 +43,11 @@ export default class CreateInvitation extends React.Component {
     // Submit kezelese, adatok ellenorzese es tovabbkuldese
     async onSubmit(event) {
         event.preventDefault();
-        if (this.state.selectedTable === -1) {
-            this.setState({ msg: 'No selected table!' });
+        const msg = await createInvitation(this.state.selectedTable);
+        if (msg === 'OK') {
+            this.props.history.push(`/post_details/${document.getElementById('id').value}`);
         } else {
-            const msg = await createInvitation(this.state.selectedTable);
-            if (msg === 'OK') {
-                this.props.history.push(`/post_details/${document.getElementById('id').value}`);
-            } else {
-                this.setState({ msg });
-            }
+            this.setState({ msg });
         }
     }
 
@@ -61,21 +62,55 @@ export default class CreateInvitation extends React.Component {
             }
         }
         const invitations = await findInvitations(selectedPost._id);
+        let { description, invitationDate, invitationTime, invit } = this.state;
+
+        if (invitationDate === '') {
+            description = 'Hello ' + selectedPost.name + ' ' + invitation;
+            invit = 'Hello ' + selectedPost.name + ' ' + invitation;
+        } else {
+            if ( invitationTime === '' ) {
+                description = 'Hello ' + selectedPost.name + ' ' + invitation + ' on ' + invitationDate;
+            } else {
+                description = 'Hello ' + selectedPost.name + ' ' + invitation + ' on ' + invitationDate + ' at ' + invitationTime;
+            }
+            
+            invit = 'Hello ' + selectedPost.name + ' ' + invitation;
+        }
+        this.setState({ description, invit });
         this.setState({ invitations });
         this.setState({ selectedPost });
     }
 
     // Datum csere
     changeInvitationDate(event) {
-        let { invitationDate } = this.state;
+        let { invitationDate, invitationTime, description, invit } = this.state;
         invitationDate = event.target.value;
         this.setState({ invitationDate });
+        if(invitationTime === '' ){
+            description = invit + ' on ' + invitationDate;
+        } else {
+            description = invit + ' on ' + invitationDate + ' at ' + invitationTime;
+        }
+        this.setState({ description })
+    }
+
+    changeInvitationTime(event) {
+        let { invitationDate, invitationTime, description, invit } = this.state;
+        invitationTime = event.target.value;
+        this.setState({ invitationTime });
+        if(invitationDate === '' ){
+            description = invit + ' at ' + invitationTime;
+        } else {
+            description = invit + ' on ' + invitationDate + ' at ' + invitationTime;
+        }
+        
+        this.setState({ description })
     }
 
     // oldal kinezete
     render() {
         const {
-            msg, posts, user, invitationDate, selectedPost,
+            msg, posts, user, invitationDate, invitationTime, selectedPost, description, requirements
         } = this.state;
 
         if (!user || !selectedPost) {
@@ -109,6 +144,7 @@ export default class CreateInvitation extends React.Component {
 
                     <label htmlFor="id">Choose a post:</label>
                     <select id="id" name="id" onChange={this.postChange}>
+                        <option value=''> Choose... </option>
                         {posts.map((pst) => (
                             <option value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </option>
                         ))}
@@ -119,7 +155,15 @@ export default class CreateInvitation extends React.Component {
                     <br/>
 
                     <label htmlFor="time">Invitation time: </label>
-                    <input id="time" type="time" name="time" required/>
+                    <input id="time" type="time" name="time" value={invitationTime} onChange={this.changeInvitationTime} required/>
+                    <br/>
+
+                    <label htmlFor="description"> Description: </label>
+                    <textarea rows="5" cols="50" id="description" type="text" name="description" value={description} placeholder="description" required/>
+                    <br/>
+
+                    <label htmlFor="requirements"> Requirements: </label>
+                    <textarea id="requirements" type="text" name="requirements" value={requirements} placeholder="requirements" required/>
                     <br/>
 
                     <input type="button" value="Send Invitation" onClick={this.onSubmit} />

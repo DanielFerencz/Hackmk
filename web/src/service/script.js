@@ -44,3 +44,5 @@ export async function registerSubmit() {
     }
     return body.msg;
 }
+
+export const invitation = 'we are inviting you for a 1v1 battle with 1 of our team members in a Tetris game: https://tetr.io/#WWFN';

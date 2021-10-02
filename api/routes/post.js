@@ -39,18 +39,6 @@ router.post('/createPost', middlewares.postValidator, async (req, res) => {
             msg,
         });
     }
-    if (req.body.open >= req.body.close) {
-        msg = 'Invalid opening hours!';
-        return res.status(401).json({
-            msg,
-        });
-    }
-    if (parseInt(req.body.number, 10) < 0) {
-        msg = 'Wrong street number!';
-        return res.status(401).json({
-            msg,
-        });
-    }
 
     const { body } = req;
 
