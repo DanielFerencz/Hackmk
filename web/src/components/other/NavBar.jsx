@@ -1,7 +1,7 @@
 import autoBind from 'auto-bind';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import findUser from '../../service/user.js';
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 
 // Navbar letrehozasa, logout eseten cookie torlese
 export default class NavBar extends React.Component {
@@ -27,21 +27,35 @@ export default class NavBar extends React.Component {
         const { user } = this.state;
         if (JSON.stringify(user) === '{}') {
             return (
-                <nav>
-                    <Link to="/">Posts</Link>
-                    <Link to="/login"> Login</Link>
-                    <Link to="/register"> Register</Link>
-                </nav>
+                <>
+                    <AppBar>
+                        <Toolbar>
+                            <Typography variant="h6">
+                                <Button color='inherit' href="/">Posts</Button>
+                                <Button color='inherit' href="/login"> Login</Button>
+                                <Button color='inherit' href="/register"> Register</Button>
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                    <Toolbar />
+                </>
             );
         }
         return (
-            <nav>
-                <Link to="/">Posts</Link>
-                {(user.role === 'admin') ? <Link to="/create_post">Create Post</Link> : ''}
-                {(user.role === 'user') ? <Link to="/create_invitation">Create Invitation</Link> : ''}
-                {(user.role === 'user') ? <Link to="/my_invitations">Sent Invitations</Link> : ''}
-                <Link to="/login" onClick={this.onSubmit}>Logout: {user.username} ({(user.role === 'admin') ? 'player' : 'team'})</Link>
-            </nav>
+            <>
+                <AppBar>
+                    <Toolbar>
+                        <Typography variant="h6">
+                            <Button color='inherit' href="/">Posts</Button>
+                            {(user.role === 'admin') ? <Button color='inherit' href="/create_post">Create Post</Button> : ''}
+                            {(user.role === 'user') ? <Button color='inherit' href="/create_invitation">Create Invitation</Button> : ''}
+                            {(user.role === 'user') ? <Button color='inherit' href="/my_invitations">Sent Invitations</Button> : ''}
+                            <Button color='inherit' href="/login" onClick={this.onSubmit}>Logout: {user.username} ({(user.role === 'admin') ? 'player' : 'team'})</Button>
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <Toolbar />
+            </>
         );
     }
 }

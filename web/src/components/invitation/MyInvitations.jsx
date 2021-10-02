@@ -89,7 +89,8 @@ export default class MyInvitations extends React.Component {
                 </select>
                 <div id="invitations">
                     {invitations.map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}>Post: <b>{inv.pstName}</b>, Name:  {inv.name} , date:  {inv.date} , time:  {inv.time}, status: <b>{inv.status}</b>&nbsp;
+                        <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                        <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>&nbsp;
                             <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
                         </div>
                     ))}

@@ -2,6 +2,7 @@ import express from 'express';
 import * as database from '../db/freeCollabDB.js';
 import * as middlewares from '../public/middlewares.js';
 import * as utilities from '../public/utilities.js';
+import { zoomLink } from '../util/config.js';
 
 const router = express.Router();
 
@@ -59,9 +60,12 @@ router.put('/acceptInvitation', async (req, res) => {
         } else {
             return res.status(404).json({ msg: 'No such invitation' });
         }
+        let { description } = inv;
+        description += zoomLink;
         const updatedInv = {
             $set: {
                 status: 'accepted',
+                description,
             },
         };
         database.acceptInvitation(inv._id, updatedInv);
