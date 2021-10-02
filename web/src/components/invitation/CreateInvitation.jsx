@@ -6,8 +6,7 @@ import { createInvitation, findInvitations } from '../../service/invitation.js';
 import Msg from '../other/Msg.jsx';
 import { invitation } from '../../service/script.js';
 import {
-    FormControl,
-	Grid, MenuItem, Select, TextField,
+	Grid, Input, TextField, FormControl, Select, MenuItem
 } from "@mui/material";
 
 // Create invitation oldal-form
@@ -25,6 +24,7 @@ export default class CreateInvitation extends React.Component {
             description: '',
             requirements: 'Stable internet connection',
             invit: '',
+            postId: null,
         };
         autoBind(this);
     }
@@ -47,21 +47,22 @@ export default class CreateInvitation extends React.Component {
     // Submit kezelese, adatok ellenorzese es tovabbkuldese
     async onSubmit(event) {
         event.preventDefault();
-        const msg = await createInvitation(this.state.selectedTable);
+        const { postId } = this.state;
+        const msg = await createInvitation(postId);
         if (msg === 'OK') {
-            this.props.history.push(`/post_details/${document.getElementById('id').value}`);
+            this.props.history.push(`/post_details/${postId}`);
         } else {
             this.setState({ msg });
         }
     }
 
     // Ha valtoztatunk vendeglot...
-    async postChange(event) {
+    async postChange() {
         const { posts } = this.state;
-        let { selectedPost } = this.state;
-        const pstID = event.target.value;
+        let { selectedPost, postId } = this.state;
+        console.log(postId)
         for (let i = 0; i < posts.length; i += 1) {
-            if (posts[i]._id === parseInt(pstID, 10)) {
+            if (posts[i]._id === parseInt(postId, 10)) {
                 selectedPost = posts[i];
             }
         }
@@ -117,6 +118,13 @@ export default class CreateInvitation extends React.Component {
             msg, posts, user, invitationDate, invitationTime, selectedPost, description, requirements
         } = this.state;
 
+        let { postId } = this.state;
+
+        const handleId = (id) => {
+            postId=id;
+            this.setState({postId})
+        }
+
         if (!user || !selectedPost) {
             return <div>Create invitation not loaded yet...</div>;
         }
@@ -149,13 +157,13 @@ export default class CreateInvitation extends React.Component {
                     <Grid Item>  
                         <FormControl method="POST">
                             <label htmlFor="name">Name: {user.username} </label>
-                            <input id="name" name="name" type="hidden" value={user.username}/>
+                            <Input id="name" name="name" type='hidden' value={user.username}/>
                             <br/>
 
                             <label htmlFor="id">Choose a post:</label>
                             <Select label="Name..." id="id" name="id" onChange={this.postChange}>
                                 {posts.map((pst) => (
-                                    <MenuItem value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </MenuItem>
+                                    <MenuItem value={`${pst._id}`} key={pst._id} onClick={() => handleId(`${pst._id}`)}> {`${pst.name}`} </MenuItem>
                                 ))}
                             </Select>
 

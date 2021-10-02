@@ -20,10 +20,10 @@ export async function findMyInvitations() {
 }
 
 // foglalas elkuldese
-export async function createInvitation() {
+export async function createInvitation(postId) {
     const invitation = {
         name: document.getElementById('name').value,
-        id: document.getElementById('id').value,
+        id: postId,
         date: document.getElementById('date').value,
         time: document.getElementById('time').value,
         description: document.getElementById('description').value,

@@ -72,7 +72,6 @@ export function invitationValidator(req, res, next) {
             msg,
         });
     }
-
     const fields = ['name', 'id', 'date', 'time', 'description', 'requirements'];
     fields.forEach((field) => {
         if (req.body[field] === undefined) {
@@ -86,13 +85,12 @@ export function invitationValidator(req, res, next) {
             msg,
         });
     }
-
     if (msg !== '') {
         return res.status(404).json({
             msg,
         });
     }
-
+    console.log('asd');
     req.body.id = parseInt(req.body.id, 10);
 
     return next();
