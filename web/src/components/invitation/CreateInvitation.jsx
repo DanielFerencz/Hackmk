@@ -6,7 +6,8 @@ import { createInvitation, findInvitations } from '../../service/invitation.js';
 import Msg from '../other/Msg.jsx';
 import { invitation } from '../../service/script.js';
 import {
-	Grid,
+    FormControl,
+	Grid, MenuItem, Select, TextField,
 } from "@mui/material";
 
 // Create invitation oldal-form
@@ -146,37 +147,36 @@ export default class CreateInvitation extends React.Component {
                         <h1>Create Invitation</h1>
                     </Grid>
                     <Grid Item>  
-                        <form method="POST">
+                        <FormControl method="POST">
                             <label htmlFor="name">Name: {user.username} </label>
                             <input id="name" name="name" type="hidden" value={user.username}/>
                             <br/>
 
                             <label htmlFor="id">Choose a post:</label>
-                            <select id="id" name="id" onChange={this.postChange}>
-                                <option value=''> Choose... </option>
+                            <Select label="Name..." id="id" name="id" onChange={this.postChange}>
                                 {posts.map((pst) => (
-                                    <option value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </option>
+                                    <MenuItem value={`${pst._id}`} key={pst._id}> {`${pst.name}`} </MenuItem>
                                 ))}
-                            </select>
+                            </Select>
 
                             <label htmlFor="date">Invitation date: </label>
-                            <input id="date" type="date" name="date" value={invitationDate} onChange={this.changeInvitationDate} required/>
+                            <TextField id="date" type="date" name="date" value={invitationDate} onChange={this.changeInvitationDate} required/>
                             <br/>
 
                             <label htmlFor="time">Invitation time: </label>
-                            <input id="time" type="time" name="time" value={invitationTime} onChange={this.changeInvitationTime} required/>
+                            <TextField id="time" type="time" name="time" value={invitationTime} onChange={this.changeInvitationTime} required/>
                             <br/>
 
                             <label htmlFor="description"> Description: </label>
-                            <textarea rows="5" cols="50" id="description" type="text" name="description" value={description} placeholder="description" required/>
+                            <TextField multiline rows="5" id="description" type="text" name="description" value={description} placeholder="description" required/>
                             <br/>
 
                             <label htmlFor="requirements"> Requirements: </label>
-                            <textarea id="requirements" type="text" name="requirements" value={requirements} placeholder="requirements" required/>
+                            <TextField multiline id="requirements" type="text" name="requirements" value={requirements} placeholder="requirements" required/>
                             <br/>
 
                             <input type="button" value="Send Invitation" onClick={this.onSubmit} />
-                        </form>
+                        </FormControl>
                     </Grid> 
                 </Grid>
             </>
