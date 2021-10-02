@@ -7,6 +7,7 @@ import findUser from '../../service/user.js';
 import {
     Typography,
 	Grid,
+    TextField,
 } from "@mui/material";
 
 // egy vendeglo osszes adata
@@ -56,18 +57,22 @@ export default class PostDetails extends React.Component {
                     </Typography>
                     
                 </Grid> 
-                
+                <Grid item>
                 <div className="post">
                     <div>Game:  {post.game} </div>
                     <div>Genre:  {post.genre} </div>
                     <div>City:  {post.city} </div>
                     <div>Email: {post.email} </div>
                     <div>Tel:  {post.telefon} </div>
-                    <div>Description: <br/> <textarea rows="5" cols="50" value={post.description}/> </div>
+                    <div>Description: <br/> <TextField multiline rows="5" cols="50" value={post.description}/> </div>
                 </div>
-
-                <Invitations post={post}/>
-                <UploadPhoto user={user} post={post} details={this}/>
+                </Grid>
+                <Grid item>
+                    <Invitations post={post}/>
+                </Grid>
+                <Grid item>
+                    <UploadPhoto user={user} post={post} details={this}/>
+                </Grid>
             </Grid>
             </>
         );

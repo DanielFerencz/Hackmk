@@ -3,7 +3,7 @@ import autoBind from 'auto-bind';
 import { createPost } from '../../service/post.js';
 import Msg from '../other/Msg.jsx';
 import findUser from '../../service/user.js';
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 
 // Vendeglo letrehozasa
 export default class CreatePost extends React.Component {
@@ -70,31 +70,31 @@ export default class CreatePost extends React.Component {
                     <Grid item>
                         <form method="POST">
                             <label htmlFor="name">Post Name: </label>
-                            <input id="name" type="text" name="name" placeholder="Post name" value={post.name} onChange={this.onChange} required/>
+                            <TextField id="name" type="text" name="name" placeholder="Post name" value={post.name} onChange={this.onChange} required/>
                             <br/>
 
                             <label htmlFor="genre"> Genre name: </label>
-                            <input id="genre" type="text" name="genre" placeholder="Genre name" value={post.genre} onChange={this.onChange} required/>
+                            <TextField id="genre" type="text" name="genre" placeholder="Genre name" value={post.genre} onChange={this.onChange} required/>
                             <br/>
 
                             <label htmlFor="game"> Game name: </label>
-                            <input id="game" type="text" name="game" placeholder="Game name" value={post.game} onChange={this.onChange} required/>
+                            <TextField id="game" type="text" name="game" placeholder="Game name" value={post.game} onChange={this.onChange} required/>
                             <br/>
 
                             <label htmlFor="city"> City name: </label>
-                            <input id="city" type="text" name="city" placeholder="City name" value={post.city} onChange={this.onChange} required/>
+                            <TextField id="city" type="text" name="city" placeholder="City name" value={post.city} onChange={this.onChange} required/>
                             <br/>
 
                             <label htmlFor="email"> Email: </label>
-                            <input id="email" type="text" name="email" placeholder="Email" value={post.email} onChange={this.onChange} required/>
+                            <TextField id="email" type="text" name="email" placeholder="Email" value={post.email} onChange={this.onChange} required/>
                             <br/>
 
                             <label htmlFor="telefon">Telefon number: </label>
-                            <input id="telefon" type="tel" name="telefon" placeholder="Telefon number" value={post.telefon} onChange={this.onChange} required/>
+                            <TextField id="telefon" type="tel" name="telefon" placeholder="Telefon number" value={post.telefon} onChange={this.onChange} required/>
                             <br/>
 
                             <label htmlFor="description"> Description: </label>
-                            <textarea rows="5" cols="50" id="description" type="text" name="description" placeholder="description" value={post.description} onChange={this.onChange} required/>
+                            <TextField multiline rows='5' id="description" type="text" name="description" placeholder="description" value={post.description} onChange={this.onChange} required/>
                             <br/>
 
                             

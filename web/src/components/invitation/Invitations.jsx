@@ -4,6 +4,7 @@ import Msg from '../other/Msg.jsx';
 import { findInvitations } from '../../service/invitation.js';
 import findUser from '../../service/user.js';
 import { deleteInvitation, acceptInvitation, declineInvitation } from '../../service/deleteInvitation.js';
+import { Grid } from '@mui/material';
 
 // a foglalasok a vendegloknel
 export default class Invitations extends React.Component {
@@ -96,12 +97,14 @@ export default class Invitations extends React.Component {
     empty(msg) {
         return (
             <>
+                <Grid item>
                 <h2>Invitations: </h2>
                 <div id="invitations">
                     <div className="invitation">
                         {msg}
                     </div>
                 </div>
+                </Grid>
             </>
         );
     }
@@ -113,14 +116,18 @@ export default class Invitations extends React.Component {
         }
         return (
             <>
+                <Grid item>
                 <h2>Invitations: </h2>
+                </Grid>
                 <div id="invitations">
                     {invitations.filter((inv) => inv.name === user.username)
                         .map((inv) => (
-                            <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} ,
-                             time:  {inv.time}, status: <b>{inv.status}</b>&nbsp;
-                            <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
-                            </div>
+                            <Grid item key={inv._id}>
+                                <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} ,
+                                time:  {inv.time}, status: <b>{inv.status}</b>&nbsp;
+                                <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
+                                </div>
+                            </Grid>
                         ))}
                 </div>
             </>
@@ -144,7 +151,10 @@ export default class Invitations extends React.Component {
         if (invitations.length === 0) {
             return (
                 <>
+                    <Grid item>
                     <h2>Invitations: </h2>
+                    </Grid>
+                    <Grid item>
                     <label htmlFor="status">Choose a status:</label>
                     <select id="status" name="status" onChange={this.statusChange}>
                         <option value="" key="none"> Show every status </option>
@@ -152,22 +162,33 @@ export default class Invitations extends React.Component {
                             <option value={`${key}`} key={key}> {`${key} (${statusDict[key]})`} </option>
                         ))}
                     </select>
+                    </Grid>
+                    <Grid item>
                     <label htmlFor="date">Invitations from: </label>
                     <input id="date" type="date" name="date" value={firstDate} onChange={this.firstDateChange} required/>
                     <label htmlFor="date">Invitations until: </label>
                     <input id="date" type="date" name="date" value={secondDate} onChange={this.secondDateChange} required/>
+                    </Grid>
+                    <Grid item>
                     <div id="invitations">
                         <div className="invitation">
                             No registered invitations in the database.
                         </div>
                     </div>
+                    </Grid>
                 </>
             );
         }
         return (
             <>
+            <Grid container alignItems="center"  justifyContent="center" direction="column" jusitfy="center">
+                <Grid item>
                 <Msg msg={msg}/>
+                </Grid>
+                <Grid item>
                 <h2>Invitations: </h2>
+                </Grid>
+                <Grid item>
                 <label htmlFor="status">Choose a status:</label>
                 <select id="status" name="status" onChange={this.statusChange}>
                     <option value="" key="none"> Show every status </option>
@@ -179,34 +200,42 @@ export default class Invitations extends React.Component {
                 <input id="date" type="date" name="date" value={firstDate} onChange={this.firstDateChange} required/>
                 <label htmlFor="date">Invitations until: </label>
                 <input id="date" type="date" name="date" value={secondDate} onChange={this.secondDateChange} required/>
+                </Grid>
                 <div id="invitations">
                     {invitations.filter((inv) => inv.status === 'pending').map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                        <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b> &nbsp;
-                            <a href="#" onClick={() => this.acceptInv(inv._id)}>ACCEPT &nbsp;</a>
-                            <a href="#" onClick={() => this.declineInv(inv._id)}>DECLINE</a>
-                            { inv.name === user.username ? (
-                                <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
-                            ) : (<></>)}
-                        </div>
+                        <Grid item key={inv._id} boxSizing='border-box'>
+                            <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                            <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b> &nbsp;
+                                <a href="#" onClick={() => this.acceptInv(inv._id)}>ACCEPT &nbsp;</a>
+                                <a href="#" onClick={() => this.declineInv(inv._id)}>DECLINE</a>
+                                { inv.name === user.username ? (
+                                    <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
+                                ) : (<></>)}
+                            </div>
+                        </Grid>
                     ))}
                     {invitations.filter((inv) => inv.status === 'accepted').map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                        <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
-                            { inv.name === user.username ? (
-                                <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
-                            ) : (<></>)}
-                        </div>
+                        <Grid item key={inv._id} boxSizing='border-box'>
+                            <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                            <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
+                                { inv.name === user.username ? (
+                                    <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
+                                ) : (<></>)}
+                            </div>
+                        </Grid>
                     ))}
                     {invitations.filter((inv) => inv.status === 'declined').map((inv) => (
-                        <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                        <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
-                            { inv.name === user.username ? (
-                                <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
-                            ) : (<></>)}
-                        </div>
+                        <Grid item key={inv._id} boxSizing='border-box'>
+                            <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                            <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
+                                { inv.name === user.username ? (
+                                    <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
+                                ) : (<></>)}
+                            </div>
+                        </Grid>
                     ))}
                 </div>
+                </Grid>
             </>
         );
     }
