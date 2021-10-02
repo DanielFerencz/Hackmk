@@ -4,6 +4,10 @@ import Msg from '../other/Msg.jsx';
 import Invitations from '../invitation/Invitations.jsx';
 import UploadPhoto from './UploadPhoto.jsx';
 import findUser from '../../service/user.js';
+import {
+    Typography,
+	Grid,
+} from "@mui/material";
 
 // egy vendeglo osszes adata
 export default class PostDetails extends React.Component {
@@ -39,9 +43,20 @@ export default class PostDetails extends React.Component {
         }
         return (
             <>
-                <Msg msg={this.state.msg} />
-
-                <h1>{post.name}</h1>
+            <Grid container alignItems="center"  justifyContent="center" direction="column" jusitfy="center"> 
+                <Grid Item> 
+                    <Typography align="center" paragraph>
+                            <Msg msg={this.state.msg} />
+                    </Typography> 
+                    
+                </Grid> 
+                <Grid Item> 
+                    <Typography align="center" paragraph>
+                        <h1>{post.name}</h1>
+                    </Typography>
+                    
+                </Grid> 
+                
                 <div className="post">
                     <div>Game:  {post.game} </div>
                     <div>Genre:  {post.genre} </div>
@@ -53,6 +68,7 @@ export default class PostDetails extends React.Component {
 
                 <Invitations post={post}/>
                 <UploadPhoto user={user} post={post} details={this}/>
+            </Grid>
             </>
         );
     }
