@@ -183,7 +183,7 @@ export default class CreateInvitation extends React.Component {
                             <TextField multiline id="requirements" type="text" name="requirements" value={requirements} placeholder="requirements" required/>
                             <br/>
 
-                            <input type="button" value="Send Invitation" onClick={this.onSubmit} />
+                            <Input type="button" value="Send Invitation" onClick={this.onSubmit} />
                         </FormControl>
                     </Grid> 
                 </Grid>

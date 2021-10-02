@@ -116,20 +116,25 @@ export default class Invitations extends React.Component {
         }
         return (
             <>
+            <Grid container alignItems="center"  justifyContent="center" direction="column" jusitfy="center">
                 <Grid item>
                 <h2>Invitations: </h2>
                 </Grid>
+                <Grid item>
                 <div id="invitations">
                     {invitations.filter((inv) => inv.name === user.username)
                         .map((inv) => (
                             <Grid item key={inv._id}>
-                                <div className="invitation" key={inv._id} id={`${inv._id}`}> Name:  {inv.name} , date:  {inv.date} ,
-                                time:  {inv.time}, status: <b>{inv.status}</b>&nbsp;
+                                <span style={{"white-space": "pre-line"}}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                                <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b> &nbsp;
                                 <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
-                                </div>
+                                <hr/>
+                                </span>
                             </Grid>
                         ))}
                 </div>
+                </Grid>
+                </Grid>
             </>
         );
     }
@@ -151,6 +156,7 @@ export default class Invitations extends React.Component {
         if (invitations.length === 0) {
             return (
                 <>
+                <Grid container alignItems="center"  justifyContent="center" direction="column" jusitfy="center">
                     <Grid item>
                     <h2>Invitations: </h2>
                     </Grid>
@@ -175,6 +181,7 @@ export default class Invitations extends React.Component {
                             No registered invitations in the database.
                         </div>
                     </div>
+                    </Grid>
                     </Grid>
                 </>
             );
@@ -204,33 +211,42 @@ export default class Invitations extends React.Component {
                 <div id="invitations">
                     {invitations.filter((inv) => inv.status === 'pending').map((inv) => (
                         <Grid item key={inv._id} boxSizing='border-box'>
-                            <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                            <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b> &nbsp;
+                            <div className="invitation" key={inv._id} id={`${inv._id}`}>
+                                <span style={{"white-space": "pre-line"}}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                                <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b> &nbsp;
                                 <a href="#" onClick={() => this.acceptInv(inv._id)}>ACCEPT &nbsp;</a>
                                 <a href="#" onClick={() => this.declineInv(inv._id)}>DECLINE</a>
                                 { inv.name === user.username ? (
                                     <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
                                 ) : (<></>)}
+                                <hr/>
+                                </span>
                             </div>
                         </Grid>
                     ))}
                     {invitations.filter((inv) => inv.status === 'accepted').map((inv) => (
                         <Grid item key={inv._id} boxSizing='border-box'>
-                            <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                            <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
+                            <div className="invitation" key={inv._id} id={`${inv._id}`}>
+                                <span style={{"white-space": "pre-line"}}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                                <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
                                 { inv.name === user.username ? (
                                     <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
                                 ) : (<></>)}
+                                <hr/>
+                                </span>
                             </div>
                         </Grid>
                     ))}
                     {invitations.filter((inv) => inv.status === 'declined').map((inv) => (
                         <Grid item key={inv._id} boxSizing='border-box'>
-                            <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
-                            <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
+                            <div className="invitation" key={inv._id} id={`${inv._id}`}>
+                                <span style={{"white-space": "pre-line"}}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                                <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>
                                 { inv.name === user.username ? (
                                     <a href="#" onClick={() => deleteInvitation(inv._id) }>&nbsp; delete Invitation</a>
                                 ) : (<></>)}
+                                <hr/>
+                                </span>
                             </div>
                         </Grid>
                     ))}

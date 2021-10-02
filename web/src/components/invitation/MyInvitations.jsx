@@ -112,10 +112,14 @@ export default class MyInvitations extends React.Component {
                     <Grid Item>
                         <div id="invitations">
                             {invitations.map((inv) => (
-                                <div className="invitation" key={inv._id} id={`${inv._id}`}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
+                                <div className="invitation" key={inv._id} id={`${inv._id}`}>
+                                <span style={{"white-space": "pre-line"}}> <b>Name:</b>  {inv.name} , date:  {inv.date} , time:  {inv.time}
                                 <br/> <b>Description:</b> {inv.description} <br/> <b>Requirements:</b> {inv.requirements} <br/> <b>Status:</b> <b>{inv.status}</b>&nbsp;
                                     <a href="#" onClick={() => deleteInvitation(inv._id) }>delete Invitation</a>
+                                    <hr/>
+                                </span>
                                 </div>
+                                
                             ))}
                         </div>
                     </Grid>

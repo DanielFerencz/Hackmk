@@ -3,7 +3,7 @@ import autoBind from 'auto-bind';
 import { createPost } from '../../service/post.js';
 import Msg from '../other/Msg.jsx';
 import findUser from '../../service/user.js';
-import { Grid, TextField } from '@mui/material';
+import { Grid, Input, TextField } from '@mui/material';
 
 // Vendeglo letrehozasa
 export default class CreatePost extends React.Component {
@@ -98,7 +98,7 @@ export default class CreatePost extends React.Component {
                             <br/>
 
                             
-                            <input type="button" onClick={this.onSubmit} value="Create Post" />
+                            <Input type="button" onClick={this.onSubmit} value="Create Post" />
                         </form>
                     </Grid>
                 </Grid>
