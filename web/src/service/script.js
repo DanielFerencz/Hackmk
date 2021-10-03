@@ -24,12 +24,23 @@ export async function loginSubmit() {
 }
 
 // Regisztracio elkuldese
-export async function registerSubmit() {
-    const formJSON = JSON.stringify({
+export async function registerSubmit(selectedOption) {
+    let formJSON;
+    if (selectedOption==='player') {
+        formJSON = JSON.stringify({
         username: document.getElementById('username').value,
         password1: document.getElementById('password1').value,
         password2: document.getElementById('password2').value,
+        role: 'admin'
     });
+    } else {
+        formJSON = JSON.stringify({
+            username: document.getElementById('username').value,
+            password1: document.getElementById('password1').value,
+            password2: document.getElementById('password2').value,
+            role: 'user'
+        });
+    }
 
     const response = await fetch(`${url}/auth/register`, {
         method: 'POST',

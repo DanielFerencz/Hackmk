@@ -13,6 +13,7 @@ export default class Register extends React.Component {
         this.state = {
             msg: '',
             user: {},
+            selectedOption: 'player',
         };
         autoBind(this);
     }
@@ -24,7 +25,8 @@ export default class Register extends React.Component {
 
     async onSubmit(event) {
         event.preventDefault();
-        const msg = await registerSubmit();
+        const { selectedOption } = this.state
+        const msg = await registerSubmit(selectedOption);
 
         if (msg === 'OK') {
             this.props.history.push('/login');
@@ -33,8 +35,14 @@ export default class Register extends React.Component {
         }
     }
 
+    onValueChange(event) {
+        this.setState({
+        selectedOption: event.target.value
+        });
+    }
+
     render() {
-        const { msg, user } = this.state;
+        const { msg, user,selectedOption } = this.state;
 
         if (JSON.stringify(user) !== '{}') {
             return (
@@ -58,12 +66,13 @@ export default class Register extends React.Component {
         return (
             <>
                 <Grid container direction="column" alignItems="center" justifyContent="center" justify="center">
-                    <Grid Item> 
+                    <Grid item> 
                         <Msg msg={msg}/>
                     </Grid> 
-                    <Grid Item> 
+                    <Grid item> 
                         <h1>Register</h1>
                     </Grid> 
+                    <Grid item>
                     <form method="POST" id="register">
                         <label htmlFor="username">Username: </label>
                         <input id="username" type="text" name="username" required/>
@@ -74,8 +83,20 @@ export default class Register extends React.Component {
                         <label htmlFor="password2">Password again: </label>
                         <input id="password2" type="password" name="password2" required/>
 
+                        <label htmlFor="check"> Are you a player? Or do you represent a team? </label>
+                        <div>
+                            <label>
+                            <input type="radio" id="player"
+                            name="choice" value="player" checked={selectedOption==="player" } onChange={this.onValueChange}/>Player
+                            </label>
+                            <label>
+                            <input type="radio" id="team"
+                            name="choice" value="team" checked={selectedOption==="team"} onChange={this.onValueChange}/>Team
+                            </label>
+                        </div>
                         <input type="button" onClick={this.onSubmit} value="Register"/>
                     </form>
+                    </Grid>
                 </Grid>
             </>
         );

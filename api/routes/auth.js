@@ -82,10 +82,10 @@ router.post('/auth/register', middlewares.registerValidator, async (req, res) =>
         });
     }
 
-    const { password1, password2 } = req.body;
+    const { password1, password2, role } = req.body;
 
     if (password1 === password2) {
-        const user = { name: username, password: bcrypt.hashSync(password1, 10), role: 'user' };
+        const user = { name: username, password: bcrypt.hashSync(password1, 10), role };
 
         await database.insertUser(user);
         msg = 'User created, please log in!';
