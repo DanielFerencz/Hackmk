@@ -1,6 +1,6 @@
 import * as database from '../db/freeCollabDB.js';
 
-// Segedfuggveny: Van-e olyan id-t tartalmazo vendeglo
+// Segedfuggveny: Van-e olyan id-t tartalmazo bejegyzes
 export async function containsId(id) {
     let post;
     try {
@@ -16,7 +16,7 @@ export async function containsId(id) {
     return false;
 }
 
-// Vendegloket lekeri
+// bejegyzeseket lekeri
 export async function fromPosts(id) {
     let post;
     try {
@@ -34,7 +34,7 @@ export async function fromPosts(id) {
     return ok;
 }
 
-// Van e olyan nevu vendeglo
+// Van e olyan nevu bejegyzes
 export async function containsPost(pst) {
     let post;
     try {

@@ -1,6 +1,6 @@
 export const apiServerUrl = 'http://localhost:8080/api';
 
-// Az osszes vendeglo lekerese
+// Az osszes bejegyzes lekerese
 export async function findAllPosts() {
     const response = await fetch(`${apiServerUrl}/posts`);
     const posts = await response.json();
@@ -8,7 +8,7 @@ export async function findAllPosts() {
     return [];
 }
 
-// Egy vendeglo adatai
+// Egy bejegyzes adatai
 export async function findPost(pstID) {
     const response = await fetch(`${apiServerUrl}/post?pst_id=${pstID}`);
     const post = await response.json();
@@ -19,7 +19,7 @@ export async function findPost(pstID) {
     return {};
 }
 
-// Vendeglo letrehozasa, elkuldese
+// bejegyzes letrehozasa, elkuldese
 export async function createPost(post) {
     const response = await fetch(`${apiServerUrl}/createPost`, {
         method: 'POST',

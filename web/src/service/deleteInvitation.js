@@ -1,6 +1,6 @@
 import url from './post.js';
 
-// egy foglalas torlesenek a menete
+// egy meghivas torlesenek a menete
 export async function deleteInvitation(invId) {
     const resp = await fetch(`${url}/deleteInvitation?id=${invId}`, {
         method: 'DELETE',
@@ -39,7 +39,7 @@ export async function deleteInvitation(invId) {
     }
 }
 
-// Foglalas elfogadasa
+// Meghivas elfogadasa
 export async function acceptInvitation(invId) {
     const resp = await fetch(`${url}/acceptInvitation?id=${invId}`, {
         method: 'PUT',
@@ -53,7 +53,7 @@ export async function acceptInvitation(invId) {
     return body.msg;
 }
 
-// Foglalas elutasitasa
+// Meghivas elutasitasa
 export async function declineInvitation(invId) {
     const resp = await fetch(`${url}/declineInvitation?id=${invId}`, {
         method: 'PUT',

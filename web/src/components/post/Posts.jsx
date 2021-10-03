@@ -9,7 +9,7 @@ import {
 	Grid,
 } from "@mui/material";
 
-// Az osszes vendeglo listazasa
+// Az osszes bejegyzes listazasa
 export default class Posts extends React.Component {
     constructor(props) {
         super(props);
@@ -38,7 +38,7 @@ export default class Posts extends React.Component {
         this.makeDict(nameFilter);
     }
 
-    // Varos filter
+    // Tipus filter
     genreChange(event) {
         let { genreFilter } = this.state;
         genreFilter = event.target.value;

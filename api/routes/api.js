@@ -3,7 +3,7 @@ import * as database from '../db/freeCollabDB.js';
 
 const router = express.Router();
 
-// Leker tobb informaciot a vendeglorol
+// Leker tobb informaciot a bejegyzesrol
 router.get('/getMoreInfo', async (req, res) => {
     try {
         const info = await database.findPost(parseInt(req.query.id, 10));

@@ -10,7 +10,7 @@ import {
     TextField,
 } from "@mui/material";
 
-// egy vendeglo osszes adata
+// egy bejegyzes osszes adata
 export default class PostDetails extends React.Component {
     constructor(props) {
         super(props);

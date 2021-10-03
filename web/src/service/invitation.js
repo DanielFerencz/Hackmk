@@ -1,6 +1,6 @@
 import url from './post.js';
 
-// Foglalasok lekerese egy vendeglohoz
+// Meghivasok lekerese egy bejegyzeshez
 export async function findInvitations(pstID) {
     const response = await fetch(`${url}/invitations?pst_id=${pstID}`);
     const invitations = await response.json();
@@ -8,7 +8,7 @@ export async function findInvitations(pstID) {
     return [];
 }
 
-// A sajat user foglalasai
+// A sajat user meghivasai
 export async function findMyInvitations() {
     const response = await fetch(`${url}/myInvitations`, {
         mode: 'cors',
@@ -19,7 +19,7 @@ export async function findMyInvitations() {
     return [];
 }
 
-// foglalas elkuldese
+// meghivas elkuldese
 export async function createInvitation(postId) {
     const invitation = {
         name: document.getElementById('name').value,

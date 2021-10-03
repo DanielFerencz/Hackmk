@@ -6,13 +6,13 @@ import { zoomLink } from '../util/config.js';
 
 const router = express.Router();
 
-// Lekeri az osszes foglalast az adott vendeglore
+// Lekeri az osszes meghivot az adott bejegyzesre
 router.get('/invitations', async (req, res) => {
     const invitations = await database.findInvitations(parseInt(req.query.pst_id, 10));
     res.send(invitations);
 });
 
-// Lekeri egy bejelentkezett user foglalasait
+// Lekeri egy bejelentkezett user meghivoit
 router.get('/myInvitations', async (req, res) => {
     if (res.locals.payload.username) {
         const invitations = await database.findMyInvitations(res.locals.payload.username);
@@ -24,7 +24,7 @@ router.get('/myInvitations', async (req, res) => {
     }
 });
 
-// Foglalas torlese, admin kell legyen a user
+// Meghivo torlese, admin kell legyen a user
 router.delete('/deleteInvitation', async (req, res) => {
     try {
         const inv = await database.findInvitation(req.query.id);
@@ -43,7 +43,7 @@ router.delete('/deleteInvitation', async (req, res) => {
     }
 });
 
-// Foglalas elfogadasa
+// Meghivo elfogadasa
 router.put('/acceptInvitation', async (req, res) => {
     try {
         const inv = await database.findInvitation(req.query.id);
@@ -78,7 +78,7 @@ router.put('/acceptInvitation', async (req, res) => {
     }
 });
 
-// Foglalas elutasitasa
+// Meghivo elutasitasa
 router.put('/declineInvitation', async (req, res) => {
     try {
         const inv = await database.findInvitation(req.query.id);
@@ -110,7 +110,7 @@ router.put('/declineInvitation', async (req, res) => {
     }
 });
 
-// Foglalas letrehozasa, adatok ellenorzese
+// Meghivo letrehozasa, adatok ellenorzese
 router.post('/createInvitation', middlewares.invitationValidator, async (req, res) => {
     let msg;
     try {

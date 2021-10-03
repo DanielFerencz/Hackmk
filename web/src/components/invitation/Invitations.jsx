@@ -6,7 +6,7 @@ import findUser from '../../service/user.js';
 import { deleteInvitation, acceptInvitation, declineInvitation } from '../../service/deleteInvitation.js';
 import { Grid } from '@mui/material';
 
-// a foglalasok a vendegloknel
+// a meghivasok a bejegyzeseknel
 export default class Invitations extends React.Component {
     constructor(props) {
         super(props);
@@ -71,7 +71,7 @@ export default class Invitations extends React.Component {
         this.setState({ statusDict: dict });
     }
 
-    // foglalas elfogadasa
+    // meghivas elfogadasa
     async acceptInv(id) {
         const msg = await acceptInvitation(id);
         if (msg === 'OK') {
@@ -82,7 +82,7 @@ export default class Invitations extends React.Component {
         }
     }
 
-    // foglalas elutasitasa event
+    // meghivas elutasitasa event
     async declineInv(id) {
         const msg = await declineInvitation(id);
         if (msg === 'OK') {
@@ -93,7 +93,7 @@ export default class Invitations extends React.Component {
         }
     }
 
-    // Ha ures a foglalasok szama
+    // Ha ures a meghivasok szama
     empty(msg) {
         return (
             <>
@@ -109,7 +109,7 @@ export default class Invitations extends React.Component {
         );
     }
 
-    // Ha valaki nem admin nezi a foglalasokat
+    // Ha valaki nem admin nezi a meghivasokat
     notAdmin(user, invitations) {
         if (invitations.filter((inv) => inv.name === user.username).length === 0) {
             return this.empty('You have no registered invitations.');

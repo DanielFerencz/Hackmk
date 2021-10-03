@@ -7,7 +7,7 @@ import {
 	Grid,
 } from "@mui/material";
 
-// Sajat foglalasok betoltese
+// Sajat meghivasok betoltese
 export default class MyInvitations extends React.Component {
     constructor(props) {
         super(props);

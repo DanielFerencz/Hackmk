@@ -7,13 +7,13 @@ const router = express.Router();
 
 let postID = 0;
 
-// Az osszes vendeglo lekerese
+// Az osszes bejegyzes lekerese
 router.get('/posts', async (req, res) => {
     const posts = await database.findAllPosts();
     return res.send(posts);
 });
 
-// egy vendeglo lekerese
+// egy bejegyzes lekerese
 router.get('/post', async (req, res) => {
     const post = await database.findPost(parseInt(req.query.pst_id, 10));
     if (post) {
@@ -24,7 +24,7 @@ router.get('/post', async (req, res) => {
     });
 });
 
-// vendeglo letrehozasa, adatok ellenorzese
+// bejegyzes letrehozasa, adatok ellenorzese
 router.post('/createPost', middlewares.postValidator, async (req, res) => {
     let ok;
     let msg;

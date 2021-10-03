@@ -5,7 +5,7 @@ import Msg from '../other/Msg.jsx';
 import findUser from '../../service/user.js';
 import { Grid, Input, TextField } from '@mui/material';
 
-// Vendeglo letrehozasa
+// Bejegyzes letrehozasa
 export default class CreatePost extends React.Component {
     constructor(props) {
         super(props);
@@ -23,7 +23,7 @@ export default class CreatePost extends React.Component {
         this.setState({ user });
     }
 
-    // vendeglo felepitese mint objektum
+    // Bejegyzes felepitese mint objektum
     onChange(event) {
         const { post } = this.state;
         post[event.target.name] = event.target.value;

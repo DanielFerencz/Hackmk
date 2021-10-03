@@ -40,7 +40,7 @@ export function registerValidator(req, res, next) {
     return next();
 }
 
-// A vendeglo letrehozasakor leelenorzi az adatok jelenletet
+// A bejegyzes letrehozasakor leelenorzi az adatok jelenletet
 export function postValidator(req, res, next) {
     if (res.locals.payload.role !== 'admin') {
         return res.status(403).json({
@@ -63,7 +63,7 @@ export function postValidator(req, res, next) {
     return next();
 }
 
-// Egy foglalas adatait ellenorzi le
+// Egy meghivo adatait ellenorzi le
 export function invitationValidator(req, res, next) {
     let msg = '';
     if (!res.locals.payload.role) {

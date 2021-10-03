@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Egy vendeglo nemi adatai
+// Egy bejegyzes nemi adatai
 export default class Post extends React.Component {
     render() {
         const { pst } = this.props;

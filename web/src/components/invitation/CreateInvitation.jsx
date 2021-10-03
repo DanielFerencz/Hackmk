@@ -29,7 +29,7 @@ export default class CreateInvitation extends React.Component {
         autoBind(this);
     }
 
-    // Kezdeti adatok betoltese, user, vendeglok, azokra meg a foglalasok
+    // Kezdeti adatok betoltese, user, bejegyzesek, azokra meg a meghivasok
     async componentDidMount() {
         const posts = await findAllPosts();
         let { invitations } = this.state;
@@ -56,7 +56,7 @@ export default class CreateInvitation extends React.Component {
         }
     }
 
-    // Ha valtoztatunk vendeglot...
+    // Ha valtoztatunk bejegyzest...
     async postChange() {
         const { posts } = this.state;
         let { selectedPost, postId } = this.state;
