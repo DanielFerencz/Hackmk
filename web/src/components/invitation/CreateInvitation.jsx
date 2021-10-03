@@ -24,7 +24,7 @@ export default class CreateInvitation extends React.Component {
             description: '',
             requirements: 'Stable internet connection',
             invit: '',
-            postId: null,
+            postId: '',
         };
         autoBind(this);
     }
@@ -60,7 +60,6 @@ export default class CreateInvitation extends React.Component {
     async postChange() {
         const { posts } = this.state;
         let { selectedPost, postId } = this.state;
-        console.log(postId)
         for (let i = 0; i < posts.length; i += 1) {
             if (posts[i]._id === parseInt(postId, 10)) {
                 selectedPost = posts[i];
@@ -112,18 +111,21 @@ export default class CreateInvitation extends React.Component {
         this.setState({ description })
     }
 
+    handleId(event) {
+        let {postId} = this.state;
+        postId=event.target.value;
+        this.setState({postId});
+        this.postChange();
+    }
+
     // oldal kinezete
     render() {
+
         const {
-            msg, posts, user, invitationDate, invitationTime, selectedPost, description, requirements
+            msg, posts, user, invitationDate, invitationTime, selectedPost, description, requirements,
         } = this.state;
 
         let { postId } = this.state;
-
-        const handleId = (id) => {
-            postId=id;
-            this.setState({postId})
-        }
 
         if (!user || !selectedPost) {
             return <div>Create invitation not loaded yet...</div>;
@@ -161,9 +163,9 @@ export default class CreateInvitation extends React.Component {
                             <br/>
 
                             <label htmlFor="id">Choose a post:</label>
-                            <Select label="Name..." id="id" name="id" onChange={this.postChange}>
+                            <Select label="Name..." id="id" name="id" value={postId} onChange={this.handleId}>
                                 {posts.map((pst) => (
-                                    <MenuItem value={`${pst._id}`} key={pst._id} onClick={() => handleId(`${pst._id}`)}> {`${pst.name}`} </MenuItem>
+                                    <MenuItem value={`${pst._id}`} key={pst._id} > {`${pst.name}`} </MenuItem>
                                 ))}
                             </Select>
 

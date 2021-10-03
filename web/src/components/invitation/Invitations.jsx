@@ -97,13 +97,15 @@ export default class Invitations extends React.Component {
     empty(msg) {
         return (
             <>
-                <Grid item>
-                <h2>Invitations: </h2>
-                <div id="invitations">
-                    <div className="invitation">
-                        {msg}
+                <Grid container alignItems="center"  justifyContent="center" direction="column" jusitfy="center">
+                    <Grid item>
+                    <h2>Invitations: </h2>
+                    <div id="invitations">
+                        <div className="invitation">
+                            {msg}
+                        </div>
                     </div>
-                </div>
+                    </Grid>
                 </Grid>
             </>
         );
