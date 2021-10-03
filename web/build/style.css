@@ -1,21 +1,33 @@
 body {
-    background-color: rgb(243, 213, 174);
+    background-color: #c8d8e4;
+    font-size: 18px;
+    
 }
 
 nav a {
-    border-radius: 10px;
-    border: 1px solid rgb(151, 71, 1);
+    margin-left: 1%;
+    border: 1px solid hsl(36, 68%, 52%);
     padding: 10px;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s;
 }
 
-nav a:hover {
-    background-color:sienna;
+a:hover {
     color: rgb(59, 38, 22);
 }
 
+nav a:hover {
+    background-color:hsl(29, 82%, 49%);
+    color: rgb(59, 38, 22);
+}
+
+h1, h2, h3 {
+    color: #52ab98;
+    font-style: italic;
+    padding-left: 2%;
+}
+
 a {
-    color: #915757;
+    color:  #52ab98;
     text-decoration: none;
 }
 
@@ -29,24 +41,21 @@ label {
     display: block;
 }
 
-.delete-button{
-    color: red;
-}
-
-div.restaurant {
-    border: 1px solid gray;
+div.post {
+    border: 2px solid #2b6777;
     margin: 10px;
+    padding: 0.7%;
 }
-div#reservations {
-    border: 1px solid gray;
+div#invitations {
+    border: 2px solid #2b6777;
     margin: 10px;
 }
 
-div.restaurant div {
+div.post div {
     margin: 5px;
 }
 
-div#reservations div {
+div#invitations div {
     margin: 5px;
 }
 
@@ -55,11 +64,8 @@ h2 {
     margin: 10px;
 }
 
-div.quiz > h2 {
-    margin: 2px;
-}
-
 img {
+    padding-left: 1%;
     width: 300px;
 }
 
@@ -71,4 +77,15 @@ img {
 
 form#logout {
     display: inline;
+}
+
+input.tables {
+    background-color: gray;
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+input.tables:hover {
+    background-color: darkgrey;
 }
