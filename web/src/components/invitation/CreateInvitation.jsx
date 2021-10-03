@@ -57,9 +57,9 @@ export default class CreateInvitation extends React.Component {
     }
 
     // Ha valtoztatunk bejegyzest...
-    async postChange() {
+    async postChange(postId) {
         const { posts } = this.state;
-        let { selectedPost, postId } = this.state;
+        let { selectedPost } = this.state;
         for (let i = 0; i < posts.length; i += 1) {
             if (posts[i]._id === parseInt(postId, 10)) {
                 selectedPost = posts[i];
@@ -114,8 +114,9 @@ export default class CreateInvitation extends React.Component {
     handleId(event) {
         let {postId} = this.state;
         postId=event.target.value;
+        console.log(postId)
         this.setState({postId});
-        this.postChange();
+        this.postChange(postId);
     }
 
     // oldal kinezete
